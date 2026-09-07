@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from './Hero.astro';
+import Skills from './Skills.astro';
+import Brands from './Brands.astro';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const t = {
+  es: {
+    title: 'Ángel G. Cidoncha — Diseño, desarrollo y automatización',
+    description: 'Perfil híbrido de diseño web, frontend, WordPress, SEO, automatización e inteligencia artificial.',
+  },
+  en: {
+    title: 'Ángel G. Cidoncha — Design, development and automation',
+    description: 'Hybrid profile in web design, frontend, WordPress, SEO, automation and artificial intelligence.',
+  },
+}[lang];
+---
+
+<BaseLayout title={t.title} description={t.description} lang={lang}>
+  <Hero lang={lang} />
+  <Skills lang={lang} />
+  <Brands lang={lang} />
+</BaseLayout>

@@ -1,4 +1,23 @@
 ---
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const t = {
+  es: {
+    intro: 'Empresas con las que he colaborado',
+    cta: 'Ejemplos de trabajos',
+    portfolioHref: '/portfolio',
+  },
+  en: {
+    intro: 'Companies I have collaborated with',
+    cta: 'Work examples',
+    portfolioHref: '/en/portfolio',
+  },
+}[lang];
+
 const brands = [
   { name: 'El Corte Inglés', file: 'el-corte-ingles' },
   { name: 'Sanitas', file: 'sanitas' },
@@ -14,7 +33,7 @@ const brands = [
 ---
 
 <section class="brands" aria-labelledby="brands-title">
-  <p class="brands__intro" id="brands-title">Empresas con las que he colaborado</p>
+  <p class="brands__intro" id="brands-title">{t.intro}</p>
   <ul class="brands__grid">
     {brands.map((brand, index) => (
       <li class="brands__item" style={`--delay: ${index * 60}ms`}>
@@ -37,7 +56,7 @@ const brands = [
   </ul>
 
   <p class="brands__cta">
-    <a href="/portfolio">Ejemplos de trabajos <span aria-hidden="true">→</span></a>
+    <a href={t.portfolioHref}>{t.cta} <span aria-hidden="true">→</span></a>
   </p>
 </section>
 

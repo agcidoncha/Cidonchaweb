@@ -18,69 +18,212 @@ const ICONS: Record<string, string> = {
 const icon = (name: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] ?? ''}</svg>`;
 
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const page = {
+  es: {
+    heading: 'Perfil técnico y creativo',
+    subtitle: 'Diseño, desarrollo e IA aplicados a proyectos digitales.',
+    boardLabel: 'Áreas de habilidades interactivas',
+    prev: 'Área anterior',
+    next: 'Área siguiente',
+    drag: (title: string) => `Arrastrar ${title}`,
+    close: (title: string) => `Cerrar ${title}`,
+    closeLabel: 'Cerrar',
+    flowFor: (title: string) => `Flujo de trabajo de ${title}`,
+    hintTap: 'Toca',
+    hintTapRest: 'una tarjeta para consultar cada área',
+    hintDrag: 'Arrastra',
+    hintDragRest: 'desde ··· para cambiar su orden',
+  },
+  en: {
+    heading: 'Technical & creative profile',
+    subtitle: 'Design, development and AI applied to digital projects.',
+    boardLabel: 'Interactive skill areas',
+    prev: 'Previous area',
+    next: 'Next area',
+    drag: (title: string) => `Drag ${title}`,
+    close: (title: string) => `Close ${title}`,
+    closeLabel: 'Close',
+    flowFor: (title: string) => `${title} workflow`,
+    hintTap: 'Tap',
+    hintTapRest: 'a card to see each area',
+    hintDrag: 'Drag',
+    hintDragRest: 'from ··· to change its order',
+  },
+}[lang];
+
 const skillGroups = [
   {
     id: 'diseno',
     number: '01',
-    tag: 'Diseño',
-    title: 'Diseño y maquetación',
     accent: '#ff684b',
-    intro: 'Interfaces claras, maquetadas con código limpio y pensadas para funcionar igual de bien en cualquier dispositivo.',
-    flowLabel: 'FLUJO DE DISEÑO',
-    items: ['Diseño UI', 'Maquetación responsive', 'Optimización UX', 'HTML5, CSS3 y SASS', 'Desarrollo mobile-first'],
+    tag: { es: 'Diseño', en: 'Design' },
+    title: { es: 'Diseño y maquetación', en: 'Design & layout' },
+    intro: {
+      es: 'Interfaces claras, maquetadas con código limpio y pensadas para funcionar igual de bien en cualquier dispositivo.',
+      en: 'Clear interfaces, built with clean code and designed to work equally well on any device.',
+    },
+    flowLabel: { es: 'FLUJO DE DISEÑO', en: 'DESIGN FLOW' },
+    items: {
+      es: ['Diseño UI', 'Maquetación responsive', 'Optimización UX', 'HTML5, CSS3 y SASS', 'Desarrollo mobile-first'],
+      en: ['UI design', 'Responsive layout', 'UX optimization', 'HTML5, CSS3 & SASS', 'Mobile-first development'],
+    },
     steps: [
-      { icon: 'layout', title: 'Boceto y wireframe', desc: 'Se define la estructura y la jerarquía visual', status: 'Diseño' },
-      { icon: 'palette', title: 'Sistema visual', desc: 'Tipografía, color y componentes coherentes', status: 'Sistema' },
-      { icon: 'code', title: 'Maquetación', desc: 'HTML y CSS semántico, limpio y responsive', status: 'Código' },
-      { icon: 'check', title: 'Revisión UX', desc: 'Se valida la experiencia en cualquier dispositivo', status: 'Publicado' },
+      {
+        icon: 'layout',
+        title: { es: 'Boceto y wireframe', en: 'Sketch & wireframe' },
+        desc: { es: 'Se define la estructura y la jerarquía visual', en: 'Structure and visual hierarchy are defined' },
+        status: { es: 'Diseño', en: 'Design' },
+      },
+      {
+        icon: 'palette',
+        title: { es: 'Sistema visual', en: 'Visual system' },
+        desc: { es: 'Tipografía, color y componentes coherentes', en: 'Consistent typography, color and components' },
+        status: { es: 'Sistema', en: 'System' },
+      },
+      {
+        icon: 'code',
+        title: { es: 'Maquetación', en: 'Layout' },
+        desc: { es: 'HTML y CSS semántico, limpio y responsive', en: 'Semantic, clean and responsive HTML & CSS' },
+        status: { es: 'Código', en: 'Code' },
+      },
+      {
+        icon: 'check',
+        title: { es: 'Revisión UX', en: 'UX review' },
+        desc: { es: 'Se valida la experiencia en cualquier dispositivo', en: 'The experience is validated on any device' },
+        status: { es: 'Publicado', en: 'Shipped' },
+      },
     ],
   },
   {
     id: 'wordpress',
     number: '02',
-    tag: 'CMS',
-    title: 'Desarrollo WordPress',
     accent: '#9c64f4',
-    intro: 'Themes a medida sobre WordPress, con una arquitectura de contenido pensada para que el equipo edite sin depender de un desarrollador.',
-    flowLabel: 'FLUJO WORDPRESS',
-    items: ['Themes a medida', 'Advanced Custom Fields (ACF)', 'Custom Post Types (CPT)', 'Templates dinámicos'],
+    tag: { es: 'CMS', en: 'CMS' },
+    title: { es: 'Desarrollo WordPress', en: 'WordPress development' },
+    intro: {
+      es: 'Themes a medida sobre WordPress, con una arquitectura de contenido pensada para que el equipo edite sin depender de un desarrollador.',
+      en: 'Custom WordPress themes, with a content architecture designed so the team can edit without relying on a developer.',
+    },
+    flowLabel: { es: 'FLUJO WORDPRESS', en: 'WORDPRESS FLOW' },
+    items: {
+      es: ['Themes a medida', 'Advanced Custom Fields (ACF)', 'Custom Post Types (CPT)', 'Templates dinámicos'],
+      en: ['Custom themes', 'Advanced Custom Fields (ACF)', 'Custom Post Types (CPT)', 'Dynamic templates'],
+    },
     steps: [
-      { icon: 'database', title: 'Arquitectura de contenido', desc: 'Se definen tipos de contenido y campos con ACF', status: 'Estructura' },
-      { icon: 'layout', title: 'Theme a medida', desc: 'Plantillas dinámicas adaptadas al proyecto', status: 'Desarrollo' },
-      { icon: 'settings', title: 'Panel editable', desc: 'El equipo de contenido gestiona sin tocar código', status: 'Autonomía' },
-      { icon: 'check', title: 'Web en producción', desc: 'Sitio estable y mantenible en el tiempo', status: 'Publicado' },
+      {
+        icon: 'database',
+        title: { es: 'Arquitectura de contenido', en: 'Content architecture' },
+        desc: { es: 'Se definen tipos de contenido y campos con ACF', en: 'Content types and fields are defined with ACF' },
+        status: { es: 'Estructura', en: 'Structure' },
+      },
+      {
+        icon: 'layout',
+        title: { es: 'Theme a medida', en: 'Custom theme' },
+        desc: { es: 'Plantillas dinámicas adaptadas al proyecto', en: 'Dynamic templates tailored to the project' },
+        status: { es: 'Desarrollo', en: 'Build' },
+      },
+      {
+        icon: 'settings',
+        title: { es: 'Panel editable', en: 'Editable panel' },
+        desc: { es: 'El equipo de contenido gestiona sin tocar código', en: 'The content team manages it without touching code' },
+        status: { es: 'Autonomía', en: 'Autonomy' },
+      },
+      {
+        icon: 'check',
+        title: { es: 'Web en producción', en: 'Live website' },
+        desc: { es: 'Sitio estable y mantenible en el tiempo', en: 'A stable, maintainable site over time' },
+        status: { es: 'Publicado', en: 'Shipped' },
+      },
     ],
   },
   {
     id: 'headless',
     number: '03',
-    tag: 'Performance',
-    title: 'Headless y rendimiento',
     accent: '#438cef',
-    intro: 'WordPress como gestor de contenido y Astro como capa de presentación, priorizando siempre la velocidad de carga.',
-    flowLabel: 'FLUJO HEADLESS',
-    items: ['WordPress Headless CMS', 'Astro, REST API y SSG', 'Core Web Vitals', 'Caché y rendimiento', 'PHP y SQL'],
+    tag: { es: 'Performance', en: 'Performance' },
+    title: { es: 'Headless y rendimiento', en: 'Headless & performance' },
+    intro: {
+      es: 'WordPress como gestor de contenido y Astro como capa de presentación, priorizando siempre la velocidad de carga.',
+      en: 'WordPress as the content manager and Astro as the presentation layer, always prioritizing load speed.',
+    },
+    flowLabel: { es: 'FLUJO HEADLESS', en: 'HEADLESS FLOW' },
+    items: {
+      es: ['WordPress Headless CMS', 'Astro, REST API y SSG', 'Core Web Vitals', 'Caché y rendimiento', 'PHP y SQL'],
+      en: ['WordPress Headless CMS', 'Astro, REST API & SSG', 'Core Web Vitals', 'Caching & performance', 'PHP & SQL'],
+    },
     steps: [
-      { icon: 'server', title: 'WordPress como CMS', desc: 'El contenido se gestiona igual que siempre', status: 'Origen' },
-      { icon: 'plug', title: 'REST API', desc: 'Astro consume el contenido vía API', status: 'Conecta' },
-      { icon: 'zap', title: 'Generación estática', desc: 'Páginas servidas ya construidas', status: 'Optimiza' },
-      { icon: 'gauge', title: 'Core Web Vitals', desc: 'Carga rápida y estable en cualquier dispositivo', status: 'Rendimiento' },
+      {
+        icon: 'server',
+        title: { es: 'WordPress como CMS', en: 'WordPress as CMS' },
+        desc: { es: 'El contenido se gestiona igual que siempre', en: 'Content is managed just like always' },
+        status: { es: 'Origen', en: 'Source' },
+      },
+      {
+        icon: 'plug',
+        title: { es: 'REST API', en: 'REST API' },
+        desc: { es: 'Astro consume el contenido vía API', en: 'Astro consumes the content via API' },
+        status: { es: 'Conecta', en: 'Connects' },
+      },
+      {
+        icon: 'zap',
+        title: { es: 'Generación estática', en: 'Static generation' },
+        desc: { es: 'Páginas servidas ya construidas', en: 'Pages served already built' },
+        status: { es: 'Optimiza', en: 'Optimizes' },
+      },
+      {
+        icon: 'gauge',
+        title: { es: 'Core Web Vitals', en: 'Core Web Vitals' },
+        desc: { es: 'Carga rápida y estable en cualquier dispositivo', en: 'Fast, stable load on any device' },
+        status: { es: 'Rendimiento', en: 'Performance' },
+      },
     ],
   },
   {
     id: 'ia',
     number: '04',
-    tag: 'IA',
-    title: 'IA y automatización',
     accent: '#38d7bc',
-    intro: 'IA y automatización aplicadas al desarrollo, la documentación y la coordinación de proyectos, no como una lista de herramientas sueltas.',
-    flowLabel: 'FLUJO CON IA',
-    items: ['Codex y Claude', 'Automatización con n8n', 'APIs y conectores MCP', 'Agentes y skills', 'Flujos asistidos por IA'],
+    tag: { es: 'IA', en: 'AI' },
+    title: { es: 'IA y automatización', en: 'AI & automation' },
+    intro: {
+      es: 'IA y automatización aplicadas al desarrollo, la documentación y la coordinación de proyectos, no como una lista de herramientas sueltas.',
+      en: 'AI and automation applied to development, documentation and project coordination, not just a list of loose tools.',
+    },
+    flowLabel: { es: 'FLUJO CON IA', en: 'AI FLOW' },
+    items: {
+      es: ['Codex y Claude', 'Automatización con n8n', 'APIs y conectores MCP', 'Agentes y skills', 'Flujos asistidos por IA'],
+      en: ['Codex & Claude', 'Automation with n8n', 'APIs & MCP connectors', 'Agents & skills', 'AI-assisted workflows'],
+    },
     steps: [
-      { icon: 'search', title: 'Tarea o proceso', desc: 'Se identifica qué puede asistirse con IA', status: 'Detecta' },
-      { icon: 'sparkles', title: 'Agente o flujo', desc: 'Se diseña con Claude, Codex o n8n', status: 'Diseña' },
-      { icon: 'share', title: 'Conectores y APIs', desc: 'Se integra con las herramientas del proyecto vía MCP', status: 'Conecta' },
-      { icon: 'check', title: 'Flujo en marcha', desc: 'Automatiza tareas y libera tiempo del equipo', status: 'Automatiza' },
+      {
+        icon: 'search',
+        title: { es: 'Tarea o proceso', en: 'Task or process' },
+        desc: { es: 'Se identifica qué puede asistirse con IA', en: 'What can be assisted with AI is identified' },
+        status: { es: 'Detecta', en: 'Detects' },
+      },
+      {
+        icon: 'sparkles',
+        title: { es: 'Agente o flujo', en: 'Agent or flow' },
+        desc: { es: 'Se diseña con Claude, Codex o n8n', en: 'Designed with Claude, Codex or n8n' },
+        status: { es: 'Diseña', en: 'Designs' },
+      },
+      {
+        icon: 'share',
+        title: { es: 'Conectores y APIs', en: 'Connectors & APIs' },
+        desc: { es: 'Se integra con las herramientas del proyecto vía MCP', en: 'Integrates with the project tools via MCP' },
+        status: { es: 'Conecta', en: 'Connects' },
+      },
+      {
+        icon: 'check',
+        title: { es: 'Flujo en marcha', en: 'Flow running' },
+        desc: { es: 'Automatiza tareas y libera tiempo del equipo', en: 'Automates tasks and frees up the team’s time' },
+        status: { es: 'Automatiza', en: 'Automates' },
+      },
     ],
   },
 ];
@@ -89,44 +232,44 @@ const skillGroups = [
 <main class="skills-page">
   <section class="skills" aria-labelledby="skills-title">
     <div class="skills__intro">
-      <h2 id="skills-title">Perfil técnico y creativo</h2>
-      <p class="skills__subtitle">Diseño, desarrollo e IA aplicados a proyectos digitales.</p>
+      <h2 id="skills-title">{page.heading}</h2>
+      <p class="skills__subtitle">{page.subtitle}</p>
     </div>
 
-    <div class="skills__board" id="skillsBoard" aria-label="Áreas de habilidades interactivas">
-      <button class="skill-nav skill-nav-prev" type="button" aria-label="Área anterior">
+    <div class="skills__board" id="skillsBoard" aria-label={page.boardLabel}>
+      <button class="skill-nav skill-nav-prev" type="button" aria-label={page.prev}>
         <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
       </button>
-      <button class="skill-nav skill-nav-next" type="button" aria-label="Área siguiente">
+      <button class="skill-nav skill-nav-next" type="button" aria-label={page.next}>
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
       {skillGroups.map((group) => (
         <article class="skill-card" data-skill={group.id} style={`--accent: ${group.accent}`}>
-          <span class="skill-card__index">{group.number} · {group.tag}</span>
-          <button class="skill-card__drag" type="button" aria-label={`Arrastrar ${group.title}`}>
+          <span class="skill-card__index">{group.number} · {group.tag[lang]}</span>
+          <button class="skill-card__drag" type="button" aria-label={page.drag(group.title[lang])}>
             <span class="skill-card__grip" aria-hidden="true"></span>
           </button>
           <button class="skill-card__open" type="button" aria-expanded="false">
-            <span class="skill-card__title">{group.title}</span>
+            <span class="skill-card__title">{group.title[lang]}</span>
           </button>
           <span class="skill-card__tap" aria-hidden="true">+</span>
-          <button class="skill-card__close" type="button" aria-label={`Cerrar ${group.title}`}>
-            <span>Cerrar</span> ×
+          <button class="skill-card__close" type="button" aria-label={page.close(group.title[lang])}>
+            <span>{page.closeLabel}</span> ×
           </button>
           <div class="skill-card__body"><div class="skill-card__body-inner">
             <div class="skill-card__layout">
               <div class="skill-card__copy">
-                <p>{group.intro}</p>
+                <p>{group.intro[lang]}</p>
                 <ul>
-                  {group.items.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item}</strong></li>)}
+                  {group.items[lang].map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item}</strong></li>)}
                 </ul>
               </div>
-              <div class="skill-card__flow" data-flow-label={group.flowLabel} aria-label={`Flujo de trabajo de ${group.title}`}>
+              <div class="skill-card__flow" data-flow-label={group.flowLabel[lang]} aria-label={page.flowFor(group.title[lang])}>
                 {group.steps.map((step, index) => (
                   <div class={`flow-step flow-step--${index + 1}`}>
                     <div class="flow-icon" set:html={icon(step.icon)} />
-                    <div class="flow-copy"><strong>{step.title}</strong><span>{step.desc}</span></div>
-                    <div class="flow-status">{step.status}</div>
+                    <div class="flow-copy"><strong>{step.title[lang]}</strong><span>{step.desc[lang]}</span></div>
+                    <div class="flow-status">{step.status[lang]}</div>
                   </div>
                 ))}
               </div>
@@ -136,8 +279,8 @@ const skillGroups = [
       ))}
     </div>
     <p class="skills__hint">
-      <span><strong>Toca</strong> una tarjeta para consultar cada área</span>
-      <span><strong>Arrastra</strong> desde ··· para cambiar su orden</span>
+      <span><strong>{page.hintTap}</strong> {page.hintTapRest}</span>
+      <span><strong>{page.hintDrag}</strong> {page.hintDragRest}</span>
     </p>
   </section>
 </main>

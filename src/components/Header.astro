@@ -1,5 +1,42 @@
 ---
 import AboutModal from './AboutModal.astro';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const isEn = pathname === '/en' || pathname.startsWith('/en/');
+const basePath = isEn ? pathname.replace(/^\/en/, '') || '/' : pathname;
+const esHref = basePath;
+const enHref = basePath === '/' ? '/en' : `/en${basePath}`;
+
+const t = {
+  es: {
+    changeLanguage: 'Cambiar idioma',
+    language: 'Idioma',
+    about: 'Sobre mí',
+    home: 'A.G. Cidoncha, inicio',
+    tagline: 'Diseño · Desarrollo · Automatización',
+    toLight: 'Cambiar a tema claro',
+    toDark: 'Cambiar a tema oscuro',
+    night: 'Noche',
+    day: 'Día',
+  },
+  en: {
+    changeLanguage: 'Change language',
+    language: 'Language',
+    about: 'About me',
+    home: 'A.G. Cidoncha, home',
+    tagline: 'Design · Development · Automation',
+    toLight: 'Switch to light theme',
+    toDark: 'Switch to dark theme',
+    night: 'Dark',
+    day: 'Light',
+  },
+}[lang];
 ---
 
 <header class="topbar">
@@ -8,7 +45,7 @@ import AboutModal from './AboutModal.astro';
       <button
         class="topbar__side"
         type="button"
-        aria-label="Cambiar idioma"
+        aria-label={t.changeLanguage}
         aria-expanded="false"
         aria-controls="languageMenuList"
       >
@@ -19,25 +56,25 @@ import AboutModal from './AboutModal.astro';
           <path d="M12 4c-2.1 2.2-3.1 4.9-3.1 8s1 5.8 3.1 8"></path>
         </svg>
       </button>
-      <div class="language-menu__list" id="languageMenuList" role="menu" aria-label="Idioma">
-        <button class="language-menu__option is-active" type="button" role="menuitem" aria-current="true">
+      <div class="language-menu__list" id="languageMenuList" role="menu" aria-label={t.language}>
+        <a class:list={['language-menu__option', { 'is-active': !isEn }]} href={esHref} role="menuitem" aria-current={!isEn}>
           <span>Español</span>
           <span class="language-menu__code">ES</span>
-        </button>
-        <button class="language-menu__option" type="button" role="menuitem" disabled>
+        </a>
+        <a class:list={['language-menu__option', { 'is-active': isEn }]} href={enHref} role="menuitem" aria-current={isEn}>
           <span>English</span>
           <span class="language-menu__code">EN</span>
-        </button>
+        </a>
       </div>
     </div>
-    <button class="about-trigger" type="button" aria-label="Sobre mí" data-about-trigger="aboutModal">
+    <button class="about-trigger" type="button" aria-label={t.about} data-about-trigger="aboutModal">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="8" r="3.2"></circle>
         <path d="M5.8 19c.7-3.4 3-5.1 6.2-5.1s5.5 1.7 6.2 5.1"></path>
       </svg>
     </button>
   </div>
-  <a class="brand" href="/" aria-label="A.G. Cidoncha, inicio">
+  <a class="brand" href={isEn ? '/en' : '/'} aria-label={t.home}>
     <svg class="brand__mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
       <defs>
         <linearGradient id="cvBrandGradient" x1="32" y1="6" x2="32" y2="58" gradientUnits="userSpaceOnUse">
@@ -50,21 +87,21 @@ import AboutModal from './AboutModal.astro';
       <path d="M21 23.5L31.5 32L21 40.5" fill="none" stroke="url(#cvBrandGradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"></path>
       <path d="M37 40.5H48" fill="none" stroke="url(#cvBrandGradient)" stroke-width="4.8" stroke-linecap="round"></path>
     </svg>
-    <span class="brand__copy"><strong>A.G. Cidoncha</strong><small>Diseño · Desarrollo · Automatización</small></span>
+    <span class="brand__copy"><strong>A.G. Cidoncha</strong><small>{t.tagline}</small></span>
   </a>
-  <button class="theme-toggle" type="button" aria-label="Cambiar a tema claro" aria-pressed="false">
+  <button class="theme-toggle" type="button" aria-label={t.toLight} aria-pressed="false" data-label-to-light={t.toLight} data-label-to-dark={t.toDark}>
     <span class="theme-toggle__option theme-toggle__option--dark" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"></path></svg>
-      <span>Noche</span>
+      <span>{t.night}</span>
     </span>
     <span class="theme-toggle__option theme-toggle__option--light" aria-hidden="true">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
-      <span>Día</span>
+      <span>{t.day}</span>
     </span>
   </button>
 </header>
 
-<AboutModal />
+<AboutModal lang={lang} />
 
 <script>
   const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
@@ -72,8 +109,10 @@ import AboutModal from './AboutModal.astro';
 
   const updateThemeControl = () => {
     const isLight = root.dataset.theme === 'light';
+    const toLight = themeToggle?.dataset.labelToLight ?? '';
+    const toDark = themeToggle?.dataset.labelToDark ?? '';
     themeToggle?.setAttribute('aria-pressed', String(isLight));
-    themeToggle?.setAttribute('aria-label', isLight ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
+    themeToggle?.setAttribute('aria-label', isLight ? toDark : toLight);
   };
 
   updateThemeControl();
@@ -135,11 +174,10 @@ import AboutModal from './AboutModal.astro';
 
   .language-menu__list { position: absolute; top: calc(100% + .6rem); left: 0; z-index: 60; min-width: 9rem; padding: .4rem; border: 1px solid color-mix(in srgb, var(--border) 55%, transparent); border-radius: .9rem; background: var(--surface); box-shadow: 0 14px 32px rgba(0, 0, 0, .18); opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
   .language-menu.is-open .language-menu__list { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .language-menu__option { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: .7rem; padding: .55rem .65rem; border: 1px solid transparent; border-radius: .6rem; color: var(--muted); background: transparent; font: 600 .78rem/1 var(--font-body); text-align: left; cursor: pointer; }
+  .language-menu__option { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: .7rem; padding: .55rem .65rem; border: 1px solid transparent; border-radius: .6rem; color: var(--muted); background: transparent; font: 600 .78rem/1 var(--font-body); text-align: left; text-decoration: none; cursor: pointer; }
   .language-menu__option:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
   .language-menu__option + .language-menu__option { margin-top: .15rem; }
   .language-menu__option.is-active { color: var(--text); background: color-mix(in srgb, var(--accent, var(--text)) 10%, transparent); }
-  .language-menu__option[disabled] { opacity: .45; cursor: default; }
   .language-menu__code { color: var(--muted); font: 700 .64rem/1 var(--font-mono); letter-spacing: .06em; }
   .language-menu__option.is-active .language-menu__code { color: var(--text); }
   .theme-toggle { position: relative; justify-self: end; display: grid; grid-template-columns: 1fr 1fr; width: 9rem; height: 2.55rem; padding: .2rem; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--muted); cursor: pointer; isolation: isolate; }

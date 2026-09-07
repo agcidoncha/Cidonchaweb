@@ -1,21 +1,47 @@
+---
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const t = {
+  es: {
+    close: 'Cerrar',
+    kicker: 'Sobre mí',
+    title: '20 años de experiencia.',
+    text: 'Llevo más de 20 años trabajando entre frontend, diseño digital y tecnología. Esa experiencia es la base desde la que hoy abordo cada proyecto: entender primero el problema y después elegir la herramienta adecuada.',
+    point1: 'Frontend Design & Layout · UX/UI · SEO · Project Management · CMS',
+    point2Strong: 'Formador de la Comunidad de Madrid',
+    point2Rest: 'durante más de 10 años.',
+  },
+  en: {
+    close: 'Close',
+    kicker: 'About me',
+    title: '20 years of experience.',
+    text: 'I have spent more than 20 years working across frontend, digital design and technology. That experience is the foundation for how I approach every project today: understand the problem first, then choose the right tool.',
+    point1: 'Frontend Design & Layout · UX/UI · SEO · Project Management · CMS',
+    point2Strong: 'Trainer for the Madrid Regional Government',
+    point2Rest: 'for over 10 years.',
+  },
+}[lang];
+---
+
 <div class="about-modal" id="aboutModal" data-about-modal role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
   <div class="about-card">
-    <button class="about-close" type="button" aria-label="Cerrar" data-about-close>×</button>
+    <button class="about-close" type="button" aria-label={t.close} data-about-close>×</button>
 
-    <p class="about-kicker">Sobre mí</p>
-    <h2 id="aboutModalTitle">20 años de experiencia.</h2>
+    <p class="about-kicker">{t.kicker}</p>
+    <h2 id="aboutModalTitle">{t.title}</h2>
 
-    <p class="about-text">
-      Llevo más de 20 años trabajando entre frontend, diseño digital y tecnología. Esa experiencia es la base desde
-      la que hoy abordo cada proyecto: entender primero el problema y después elegir la herramienta adecuada.
-    </p>
+    <p class="about-text">{t.text}</p>
 
     <div class="about-points">
       <div class="about-point">
-        <strong>Frontend Design &amp; Layout · UX/UI · SEO · Project Management · CMS</strong>
+        <strong>{t.point1}</strong>
       </div>
       <div class="about-point">
-        <strong>Formador de la Comunidad de Madrid</strong> durante más de 10 años.
+        <strong>{t.point2Strong}</strong> {t.point2Rest}
       </div>
     </div>
   </div>

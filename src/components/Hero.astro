@@ -13,6 +13,14 @@ const ICONS: Record<string, string> = {
 const icon = (name: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] ?? ''}</svg>`;
 
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const dotsLabel = { es: 'Escenas del hero', en: 'Hero scenes' }[lang];
+
 const wirePaths = [
   'M200 56 C280 56 340 56 420 56',
   'M420 92 C420 140 200 122 200 169',
@@ -23,46 +31,72 @@ const scenes = [
   {
     id: 'diseno',
     accent: '#ff684b',
-    eyebrow: 'DISEÑO · MAQUETACIÓN',
-    title: ['Usabilidad y diseño', 'intuitivos.'],
-    subtitle: 'Interfaces claras, maquetadas con código limpio y responsive.',
-    flowLabel: 'FLUJO DE DISEÑO',
+    eyebrow: { es: 'DISEÑO · MAQUETACIÓN', en: 'DESIGN · LAYOUT' },
+    title: {
+      es: ['Usabilidad y diseño', 'intuitivos.'],
+      en: ['Usability and', 'intuitive design.'],
+    },
+    subtitle: {
+      es: 'Interfaces claras, maquetadas con código limpio y responsive.',
+      en: 'Clear interfaces, built with clean, responsive code.',
+    },
+    flowLabel: { es: 'FLUJO DE DISEÑO', en: 'DESIGN FLOW' },
     nodes: [
-      { icon: 'layout', title: 'Wireframe', small: 'Estructura' },
-      { icon: 'palette', title: 'Sistema visual', small: 'Color y tipografía' },
-      { icon: 'code', title: 'Maquetación', small: 'HTML y CSS' },
-      { icon: 'check', title: 'Publicado', small: 'Cualquier dispositivo' },
+      { icon: 'layout', title: { es: 'Wireframe', en: 'Wireframe' }, small: { es: 'Estructura', en: 'Structure' } },
+      { icon: 'palette', title: { es: 'Sistema visual', en: 'Visual system' }, small: { es: 'Color y tipografía', en: 'Color & typography' } },
+      { icon: 'code', title: { es: 'Maquetación', en: 'Layout' }, small: { es: 'HTML y CSS', en: 'HTML & CSS' } },
+      { icon: 'check', title: { es: 'Publicado', en: 'Shipped' }, small: { es: 'Cualquier dispositivo', en: 'Any device' } },
     ],
   },
   {
     id: 'wordpress',
     accent: '#9c64f4',
-    eyebrow: 'WORDPRESS · CMS',
-    title: ['WordPress que', 'tu equipo puede mantener.'],
-    subtitle: 'Themes a medida con WordPress, ACF y CPT, sin depender de un desarrollador para editar.',
-    flowLabel: 'FLUJO WORDPRESS',
+    eyebrow: { es: 'WORDPRESS · CMS', en: 'WORDPRESS · CMS' },
+    title: {
+      es: ['WordPress que', 'tu equipo puede mantener.'],
+      en: ['WordPress your', 'team can maintain.'],
+    },
+    subtitle: {
+      es: 'Themes a medida con WordPress, ACF y CPT, sin depender de un desarrollador para editar.',
+      en: 'Custom WordPress themes with ACF and CPT, so editing never depends on a developer.',
+    },
+    flowLabel: { es: 'FLUJO WORDPRESS', en: 'WORDPRESS FLOW' },
     nodes: [
-      { icon: 'database', title: 'Arquitectura', small: 'CPT y ACF' },
-      { icon: 'layout', title: 'Theme a medida', small: 'Plantillas propias' },
-      { icon: 'settings', title: 'Panel editable', small: 'Sin tocar código' },
-      { icon: 'check', title: 'Publicado', small: 'Estable en el tiempo' },
+      { icon: 'database', title: { es: 'Arquitectura', en: 'Architecture' }, small: { es: 'CPT y ACF', en: 'CPT & ACF' } },
+      { icon: 'layout', title: { es: 'Theme a medida', en: 'Custom theme' }, small: { es: 'Plantillas propias', en: 'Own templates' } },
+      { icon: 'settings', title: { es: 'Panel editable', en: 'Editable panel' }, small: { es: 'Sin tocar código', en: 'No code required' } },
+      { icon: 'check', title: { es: 'Publicado', en: 'Shipped' }, small: { es: 'Estable en el tiempo', en: 'Stable over time' } },
     ],
   },
   {
     id: 'ia',
     accent: '#38d7bc',
-    eyebrow: 'IA · AUTOMATIZACIÓN',
-    title: ['IA adaptada', 'a cada necesidad.'],
-    subtitle: 'IA y automatización aplicadas al desarrollo, la documentación y la coordinación de proyectos.',
-    flowLabel: 'FLUJO CON IA',
+    eyebrow: { es: 'IA · AUTOMATIZACIÓN', en: 'AI · AUTOMATION' },
+    title: {
+      es: ['IA adaptada', 'a cada necesidad.'],
+      en: ['AI adapted to', 'every need.'],
+    },
+    subtitle: {
+      es: 'IA y automatización aplicadas al desarrollo, la documentación y la coordinación de proyectos.',
+      en: 'AI and automation applied to development, documentation and project coordination.',
+    },
+    flowLabel: { es: 'FLUJO CON IA', en: 'AI FLOW' },
     nodes: [
-      { icon: 'search', title: 'Detecta', small: 'Tarea o proceso' },
-      { icon: 'sparkles', title: 'Agente', small: 'Claude, Codex, n8n' },
-      { icon: 'share', title: 'Conecta', small: 'APIs y MCP' },
-      { icon: 'check', title: 'Automatiza', small: 'Libera tiempo' },
+      { icon: 'search', title: { es: 'Detecta', en: 'Detects' }, small: { es: 'Tarea o proceso', en: 'Task or process' } },
+      { icon: 'sparkles', title: { es: 'Agente', en: 'Agent' }, small: { es: 'Claude, Codex, n8n', en: 'Claude, Codex, n8n' } },
+      { icon: 'share', title: { es: 'Conecta', en: 'Connects' }, small: { es: 'APIs y MCP', en: 'APIs & MCP' } },
+      { icon: 'check', title: { es: 'Automatiza', en: 'Automates' }, small: { es: 'Libera tiempo', en: 'Frees up time' } },
     ],
   },
 ];
+
+const scenesData = scenes.map((scene) => ({
+  ...scene,
+  eyebrow: scene.eyebrow[lang],
+  title: scene.title[lang],
+  subtitle: scene.subtitle[lang],
+  flowLabel: scene.flowLabel[lang],
+}));
 ---
 
 <div class="hero-wrap">
@@ -75,9 +109,9 @@ const scenes = [
       </h1>
       <p class="hero__subtitle" id="heroSubtitle"></p>
 
-      <div class="hero__dots" id="heroDots" role="tablist" aria-label="Escenas del hero">
+      <div class="hero__dots" id="heroDots" role="tablist" aria-label={dotsLabel}>
         {scenes.map((scene, i) => (
-          <button class="hero__dot" type="button" data-index={i} role="tab" aria-label={scene.eyebrow} style={`--accent: ${scene.accent}`}></button>
+          <button class="hero__dot" type="button" data-index={i} role="tab" aria-label={scene.eyebrow[lang]} style={`--accent: ${scene.accent}`}></button>
         ))}
       </div>
     </div>
@@ -109,11 +143,11 @@ const scenes = [
               {scene.nodes.map((node, ni) => (
                 <div class={`diagram-node node--${ni + 1}`}>
                   <span class="diagram-node__icon" set:html={icon(node.icon)} />
-                  <span class="diagram-node__copy"><strong>{node.title}</strong><small>{node.small}</small></span>
+                  <span class="diagram-node__copy"><strong>{node.title[lang]}</strong><small>{node.small[lang]}</small></span>
                 </div>
               ))}
             </div>
-            <span class="hero__scene-label">{scene.flowLabel}</span>
+            <span class="hero__scene-label">{scene.flowLabel[lang]}</span>
           </div>
         ))}
       </div>
@@ -121,7 +155,7 @@ const scenes = [
   </main>
 </div>
 
-<script define:vars={{ scenesData: scenes }}>
+<script define:vars={{ scenesData }}>
   const heroEl = document.querySelector('.hero');
   const eyebrow = document.getElementById('heroEyebrow');
   const line1 = document.getElementById('titleLine1');
