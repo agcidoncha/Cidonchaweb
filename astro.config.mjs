@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://angelcidoncha.es',
   i18n: {
-    locales: ['es', 'en'],
+    locales: ['es', 'en', 'it'],
     defaultLocale: 'es',
     routing: { prefixDefaultLocale: false },
   },

@@ -1,6 +1,6 @@
 ---
 interface Props {
-  lang?: 'es' | 'en';
+  lang?: 'es' | 'en' | 'it';
 }
 
 const { lang = 'es' } = Astro.props;
@@ -23,6 +23,15 @@ const t = {
     point1: 'Frontend Design & Layout · UX/UI · SEO · Project Management · CMS',
     point2Strong: 'Trainer for the Madrid Regional Government',
     point2Rest: 'for over 10 years.',
+  },
+  it: {
+    close: 'Chiudi',
+    kicker: 'Su di me',
+    title: '20 anni di esperienza.',
+    text: 'Lavoro da più di 20 anni tra frontend, design digitale e tecnologia. Questa esperienza è la base con cui affronto ogni progetto: prima capire il problema, poi scegliere lo strumento giusto.',
+    point1: 'Frontend Design & Layout · UX/UI · SEO · Project Management · CMS',
+    point2Strong: 'Formatore per la Comunidad de Madrid',
+    point2Rest: 'per oltre 10 anni.',
   },
 }[lang];
 ---

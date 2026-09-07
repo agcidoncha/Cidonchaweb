@@ -2,16 +2,17 @@
 import AboutModal from './AboutModal.astro';
 
 interface Props {
-  lang?: 'es' | 'en';
+  lang?: 'es' | 'en' | 'it';
 }
 
 const { lang = 'es' } = Astro.props;
 
+const locales = ['es', 'en', 'it'] as const;
 const pathname = Astro.url.pathname;
-const isEn = pathname === '/en' || pathname.startsWith('/en/');
-const basePath = isEn ? pathname.replace(/^\/en/, '') || '/' : pathname;
-const esHref = basePath;
-const enHref = basePath === '/' ? '/en' : `/en${basePath}`;
+const matchedPrefix = locales.find((l) => l !== 'es' && (pathname === `/${l}` || pathname.startsWith(`/${l}/`)));
+const basePath = matchedPrefix ? pathname.slice(matchedPrefix.length + 1) || '/' : pathname;
+const hrefFor = (locale: (typeof locales)[number]) =>
+  locale === 'es' ? basePath : basePath === '/' ? `/${locale}` : `/${locale}${basePath}`;
 
 const t = {
   es: {
@@ -36,6 +37,17 @@ const t = {
     night: 'Dark',
     day: 'Light',
   },
+  it: {
+    changeLanguage: 'Cambia lingua',
+    language: 'Lingua',
+    about: 'Su di me',
+    home: 'A.G. Cidoncha, home',
+    tagline: 'Design · Sviluppo · Automazione',
+    toLight: 'Passa al tema chiaro',
+    toDark: 'Passa al tema scuro',
+    night: 'Scuro',
+    day: 'Chiaro',
+  },
 }[lang];
 ---
 
@@ -57,13 +69,17 @@ const t = {
         </svg>
       </button>
       <div class="language-menu__list" id="languageMenuList" role="menu" aria-label={t.language}>
-        <a class:list={['language-menu__option', { 'is-active': !isEn }]} href={esHref} role="menuitem" aria-current={!isEn}>
+        <a class:list={['language-menu__option', { 'is-active': lang === 'es' }]} href={hrefFor('es')} role="menuitem" aria-current={lang === 'es'}>
           <span>Español</span>
           <span class="language-menu__code">ES</span>
         </a>
-        <a class:list={['language-menu__option', { 'is-active': isEn }]} href={enHref} role="menuitem" aria-current={isEn}>
+        <a class:list={['language-menu__option', { 'is-active': lang === 'en' }]} href={hrefFor('en')} role="menuitem" aria-current={lang === 'en'}>
           <span>English</span>
           <span class="language-menu__code">EN</span>
+        </a>
+        <a class:list={['language-menu__option', { 'is-active': lang === 'it' }]} href={hrefFor('it')} role="menuitem" aria-current={lang === 'it'}>
+          <span>Italiano</span>
+          <span class="language-menu__code">IT</span>
         </a>
       </div>
     </div>
@@ -74,7 +90,7 @@ const t = {
       </svg>
     </button>
   </div>
-  <a class="brand" href={isEn ? '/en' : '/'} aria-label={t.home}>
+  <a class="brand" href={lang === 'es' ? '/' : `/${lang}`} aria-label={t.home}>
     <svg class="brand__mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
       <defs>
         <linearGradient id="cvBrandGradient" x1="32" y1="6" x2="32" y2="58" gradientUnits="userSpaceOnUse">

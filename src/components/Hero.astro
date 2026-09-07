@@ -14,12 +14,12 @@ const icon = (name: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] ?? ''}</svg>`;
 
 interface Props {
-  lang?: 'es' | 'en';
+  lang?: 'es' | 'en' | 'it';
 }
 
 const { lang = 'es' } = Astro.props;
 
-const dotsLabel = { es: 'Escenas del hero', en: 'Hero scenes' }[lang];
+const dotsLabel = { es: 'Escenas del hero', en: 'Hero scenes', it: 'Scene dell’hero' }[lang];
 
 const wirePaths = [
   'M200 56 C280 56 340 56 420 56',
@@ -31,61 +31,67 @@ const scenes = [
   {
     id: 'diseno',
     accent: '#ff684b',
-    eyebrow: { es: 'DISEÑO · MAQUETACIÓN', en: 'DESIGN · LAYOUT' },
+    eyebrow: { es: 'DISEÑO · MAQUETACIÓN', en: 'DESIGN · LAYOUT', it: 'DESIGN · LAYOUT' },
     title: {
       es: ['Usabilidad y diseño', 'intuitivos.'],
       en: ['Usability and', 'intuitive design.'],
+      it: ['Usabilità e design', 'intuitivi.'],
     },
     subtitle: {
       es: 'Interfaces claras, maquetadas con código limpio y responsive.',
       en: 'Clear interfaces, built with clean, responsive code.',
+      it: 'Interfacce chiare, realizzate con codice pulito e responsive.',
     },
-    flowLabel: { es: 'FLUJO DE DISEÑO', en: 'DESIGN FLOW' },
+    flowLabel: { es: 'FLUJO DE DISEÑO', en: 'DESIGN FLOW', it: 'FLUSSO DI DESIGN' },
     nodes: [
-      { icon: 'layout', title: { es: 'Wireframe', en: 'Wireframe' }, small: { es: 'Estructura', en: 'Structure' } },
-      { icon: 'palette', title: { es: 'Sistema visual', en: 'Visual system' }, small: { es: 'Color y tipografía', en: 'Color & typography' } },
-      { icon: 'code', title: { es: 'Maquetación', en: 'Layout' }, small: { es: 'HTML y CSS', en: 'HTML & CSS' } },
-      { icon: 'check', title: { es: 'Publicado', en: 'Shipped' }, small: { es: 'Cualquier dispositivo', en: 'Any device' } },
+      { icon: 'layout', title: { es: 'Wireframe', en: 'Wireframe', it: 'Wireframe' }, small: { es: 'Estructura', en: 'Structure', it: 'Struttura' } },
+      { icon: 'palette', title: { es: 'Sistema visual', en: 'Visual system', it: 'Sistema visivo' }, small: { es: 'Color y tipografía', en: 'Color & typography', it: 'Colore e tipografia' } },
+      { icon: 'code', title: { es: 'Maquetación', en: 'Layout', it: 'Layout' }, small: { es: 'HTML y CSS', en: 'HTML & CSS', it: 'HTML e CSS' } },
+      { icon: 'check', title: { es: 'Publicado', en: 'Shipped', it: 'Pubblicato' }, small: { es: 'Cualquier dispositivo', en: 'Any device', it: 'Qualsiasi dispositivo' } },
     ],
   },
   {
     id: 'wordpress',
     accent: '#9c64f4',
-    eyebrow: { es: 'WORDPRESS · CMS', en: 'WORDPRESS · CMS' },
+    eyebrow: { es: 'WORDPRESS · CMS', en: 'WORDPRESS · CMS', it: 'WORDPRESS · CMS' },
     title: {
       es: ['WordPress que', 'tu equipo puede mantener.'],
       en: ['WordPress your', 'team can maintain.'],
+      it: ['WordPress che il', 'tuo team può gestire.'],
     },
     subtitle: {
       es: 'Themes a medida con WordPress, ACF y CPT, sin depender de un desarrollador para editar.',
       en: 'Custom WordPress themes with ACF and CPT, so editing never depends on a developer.',
+      it: 'Temi WordPress su misura con ACF e CPT, senza dipendere da uno sviluppatore per modificare i contenuti.',
     },
-    flowLabel: { es: 'FLUJO WORDPRESS', en: 'WORDPRESS FLOW' },
+    flowLabel: { es: 'FLUJO WORDPRESS', en: 'WORDPRESS FLOW', it: 'FLUSSO WORDPRESS' },
     nodes: [
-      { icon: 'database', title: { es: 'Arquitectura', en: 'Architecture' }, small: { es: 'CPT y ACF', en: 'CPT & ACF' } },
-      { icon: 'layout', title: { es: 'Theme a medida', en: 'Custom theme' }, small: { es: 'Plantillas propias', en: 'Own templates' } },
-      { icon: 'settings', title: { es: 'Panel editable', en: 'Editable panel' }, small: { es: 'Sin tocar código', en: 'No code required' } },
-      { icon: 'check', title: { es: 'Publicado', en: 'Shipped' }, small: { es: 'Estable en el tiempo', en: 'Stable over time' } },
+      { icon: 'database', title: { es: 'Arquitectura', en: 'Architecture', it: 'Architettura' }, small: { es: 'CPT y ACF', en: 'CPT & ACF', it: 'CPT e ACF' } },
+      { icon: 'layout', title: { es: 'Theme a medida', en: 'Custom theme', it: 'Tema su misura' }, small: { es: 'Plantillas propias', en: 'Own templates', it: 'Template propri' } },
+      { icon: 'settings', title: { es: 'Panel editable', en: 'Editable panel', it: 'Pannello modificabile' }, small: { es: 'Sin tocar código', en: 'No code required', it: 'Senza toccare il codice' } },
+      { icon: 'check', title: { es: 'Publicado', en: 'Shipped', it: 'Pubblicato' }, small: { es: 'Estable en el tiempo', en: 'Stable over time', it: 'Stabile nel tempo' } },
     ],
   },
   {
     id: 'ia',
     accent: '#38d7bc',
-    eyebrow: { es: 'IA · AUTOMATIZACIÓN', en: 'AI · AUTOMATION' },
+    eyebrow: { es: 'IA · AUTOMATIZACIÓN', en: 'AI · AUTOMATION', it: 'IA · AUTOMAZIONE' },
     title: {
       es: ['IA adaptada', 'a cada necesidad.'],
       en: ['AI adapted to', 'every need.'],
+      it: ['IA adattata', 'a ogni esigenza.'],
     },
     subtitle: {
       es: 'IA y automatización aplicadas al desarrollo, la documentación y la coordinación de proyectos.',
       en: 'AI and automation applied to development, documentation and project coordination.',
+      it: 'IA e automazione applicate allo sviluppo, alla documentazione e al coordinamento dei progetti.',
     },
-    flowLabel: { es: 'FLUJO CON IA', en: 'AI FLOW' },
+    flowLabel: { es: 'FLUJO CON IA', en: 'AI FLOW', it: 'FLUSSO CON IA' },
     nodes: [
-      { icon: 'search', title: { es: 'Detecta', en: 'Detects' }, small: { es: 'Tarea o proceso', en: 'Task or process' } },
-      { icon: 'sparkles', title: { es: 'Agente', en: 'Agent' }, small: { es: 'Claude, Codex, n8n', en: 'Claude, Codex, n8n' } },
-      { icon: 'share', title: { es: 'Conecta', en: 'Connects' }, small: { es: 'APIs y MCP', en: 'APIs & MCP' } },
-      { icon: 'check', title: { es: 'Automatiza', en: 'Automates' }, small: { es: 'Libera tiempo', en: 'Frees up time' } },
+      { icon: 'search', title: { es: 'Detecta', en: 'Detects', it: 'Rileva' }, small: { es: 'Tarea o proceso', en: 'Task or process', it: 'Attività o processo' } },
+      { icon: 'sparkles', title: { es: 'Agente', en: 'Agent', it: 'Agente' }, small: { es: 'Claude, Codex, n8n', en: 'Claude, Codex, n8n', it: 'Claude, Codex, n8n' } },
+      { icon: 'share', title: { es: 'Conecta', en: 'Connects', it: 'Connette' }, small: { es: 'APIs y MCP', en: 'APIs & MCP', it: 'API e MCP' } },
+      { icon: 'check', title: { es: 'Automatiza', en: 'Automates', it: 'Automatizza' }, small: { es: 'Libera tiempo', en: 'Frees up time', it: 'Libera tempo' } },
     ],
   },
 ];

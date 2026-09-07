@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 interface Props {
-  lang?: 'es' | 'en';
+  lang?: 'es' | 'en' | 'it';
 }
 
 const { lang = 'es' } = Astro.props;
@@ -24,6 +24,14 @@ const t = {
     alt: (name: string) => `Screenshot of the ${name} website`,
     link: 'View project',
   },
+  it: {
+    metaTitle: 'Portfolio — Ángel G. Cidoncha',
+    metaDescription: 'Progetti reali di design, layout e sviluppo WordPress per brand come El Corte Inglés, Sanitas, Endesa, Kinépolis e altri.',
+    heading: 'Portfolio',
+    subtitle: 'Progetti reali di design, layout e sviluppo.',
+    alt: (name: string) => `Screenshot del sito ${name}`,
+    link: 'Vedi il progetto',
+  },
 }[lang];
 
 const accents = ['#ff684b', '#9c64f4', '#438cef', '#38d7bc'];
@@ -34,10 +42,12 @@ const projects = [
     description: {
       es: 'Plataforma de contratación de tarifas de luz y gas, rápida y online.',
       en: 'Fast, fully online platform for contracting electricity and gas rates.',
+      it: 'Piattaforma veloce e interamente online per attivare tariffe di luce e gas.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/el-corte-ingles.webp',
     href: 'https://ofertas.energiaelcorteingles.es/',
@@ -47,10 +57,12 @@ const projects = [
     description: {
       es: 'Comparador y contratación de envíos con varias empresas de mensajería.',
       en: 'Comparison and booking tool for shipments across several courier companies.',
+      it: 'Comparatore e prenotazione spedizioni con diversi corrieri.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Publicidad TV'],
       en: ['Web Design', 'Layout', 'TV Advertising'],
+      it: ['Web Design', 'Layout', 'Pubblicità TV'],
     },
     img: '/portfolio/packlink.webp',
     href: 'https://packlink.es/',
@@ -60,10 +72,12 @@ const projects = [
     description: {
       es: 'Web informativa sobre residencias y cuidado de personas mayores.',
       en: 'Informational website about care homes and elderly care.',
+      it: 'Sito informativo su residenze e assistenza per anziani.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/sanitas.webp',
     href: 'https://mayoressanitas.es/',
@@ -73,10 +87,12 @@ const projects = [
     description: {
       es: 'Web informativa de tarifas y planes de luz y gas.',
       en: 'Informational website for electricity and gas rates and plans.',
+      it: 'Sito informativo su tariffe e piani di luce e gas.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/endesa.webp',
     href: 'https://www.escolhaendesa.pt/',
@@ -86,10 +102,12 @@ const projects = [
     description: {
       es: 'Soluciones corporativas para eventos y experiencias de cine.',
       en: 'Corporate solutions for events and cinema experiences.',
+      it: 'Soluzioni corporate per eventi ed esperienze cinematografiche.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Publicidad TV'],
       en: ['Web Design', 'Layout', 'TV Advertising'],
+      it: ['Web Design', 'Layout', 'Pubblicità TV'],
     },
     img: '/portfolio/kinepolis.webp',
     href: 'https://empresas.kinepolis.es/',
@@ -99,10 +117,12 @@ const projects = [
     description: {
       es: 'Tienda de productos oficiales redirigida a Amazon A++.',
       en: 'Official product store redirecting to an Amazon A++ page.',
+      it: 'Negozio di prodotti ufficiali con redirect a una pagina Amazon A++.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Amazon A++'],
       en: ['Web Design', 'Layout', 'Amazon A++'],
+      it: ['Web Design', 'Layout', 'Amazon A++'],
     },
     img: '/portfolio/melopido.webp',
     href: 'https://melopido.shop/',
@@ -112,10 +132,12 @@ const projects = [
     description: {
       es: 'E-commerce de cachimbas premium, de la identidad a la tienda online.',
       en: 'Premium hookah e-commerce, from brand identity to online store.',
+      it: 'E-commerce di narghilè premium, dall’identità di marca al negozio online.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/mr-shisha.webp',
     href: 'https://mrshisha.es/',
@@ -125,10 +147,12 @@ const projects = [
     description: {
       es: 'Web de eventos automovilísticos, de la marca a la implementación.',
       en: 'Website for car events, from branding to implementation.',
+      it: 'Sito per eventi automobilistici, dal branding all’implementazione.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Video Evento'],
       en: ['Web Design', 'Layout', 'Event Video'],
+      it: ['Web Design', 'Layout', 'Video Evento'],
     },
     img: '/portfolio/if-you-like-cars.webp',
     href: 'https://ifyoulikecars.com/',
@@ -138,10 +162,12 @@ const projects = [
     description: {
       es: 'Web corporativa en 3 idiomas, de diseño a SEO técnico.',
       en: 'Corporate website in 3 languages, from design to technical SEO.',
+      it: 'Sito corporate in 3 lingue, dal design alla SEO tecnica.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/ltw.webp',
     href: 'https://ltw.es/',
@@ -151,10 +177,12 @@ const projects = [
     description: {
       es: 'Planes familiares originales, con CMS y rendimiento cuidado.',
       en: 'Original family plans, with a well-tuned CMS and performance.',
+      it: 'Piani per famiglie originali, con CMS e performance curati.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/supertribus.webp',
     href: 'https://supertribus.com/',
@@ -164,10 +192,12 @@ const projects = [
     description: {
       es: 'Web de estilismo y asesoramiento personalizado.',
       en: 'Website for personal styling and image consulting.',
+      it: 'Sito per consulenza di stile e immagine personalizzata.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/asesores-de-imagen.webp',
     href: 'https://aiasesoresdeimagen.com/',
@@ -177,10 +207,12 @@ const projects = [
     description: {
       es: 'Web corporativa de soluciones de analítica de audio/vídeo con IA.',
       en: 'Corporate website for AI-powered audio/video analytics solutions.',
+      it: 'Sito corporate per soluzioni di analisi audio/video basate su IA.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/isid.webp',
     href: 'https://isid.com/',
@@ -190,10 +222,12 @@ const projects = [
     description: {
       es: 'Animación de eventos infantiles, de empresa y para adultos.',
       en: 'Entertainment for children’s, corporate and adult events.',
+      it: 'Animazione per eventi per bambini, aziendali e per adulti.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/zumo-animaciones.webp',
     href: 'https://zumoanimaciones.com/',
@@ -203,10 +237,12 @@ const projects = [
     description: {
       es: 'Web de servicios profesionales, clara y accesible.',
       en: 'Clear, accessible website for professional services.',
+      it: 'Sito chiaro e accessibile per servizi professionali.',
     },
     tags: {
       es: ['Diseño Web', 'Maquetación', 'Programación'],
       en: ['Web Design', 'Layout', 'Development'],
+      it: ['Web Design', 'Layout', 'Sviluppo'],
     },
     img: '/portfolio/perucha-y-asociados.webp',
     href: 'https://peruchayasociados.com/',

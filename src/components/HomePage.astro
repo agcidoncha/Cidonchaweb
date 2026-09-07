@@ -5,7 +5,7 @@ import Skills from './Skills.astro';
 import Brands from './Brands.astro';
 
 interface Props {
-  lang?: 'es' | 'en';
+  lang?: 'es' | 'en' | 'it';
 }
 
 const { lang = 'es' } = Astro.props;
@@ -18,6 +18,10 @@ const t = {
   en: {
     title: 'Ángel G. Cidoncha — Design, development and automation',
     description: 'Hybrid profile in web design, frontend, WordPress, SEO, automation and artificial intelligence.',
+  },
+  it: {
+    title: 'Ángel G. Cidoncha — Design, sviluppo e automazione',
+    description: 'Profilo ibrido di design web, frontend, WordPress, SEO, automazione e intelligenza artificiale.',
   },
 }[lang];
 ---
