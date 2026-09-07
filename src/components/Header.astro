@@ -1,29 +1,41 @@
+---
+import AboutModal from './AboutModal.astro';
+---
+
 <header class="topbar">
-  <div class="language-menu" id="languageMenu">
-    <button
-      class="topbar__side"
-      type="button"
-      aria-label="Cambiar idioma"
-      aria-expanded="false"
-      aria-controls="languageMenuList"
-    >
+  <div class="topbar__left">
+    <div class="language-menu" id="languageMenu">
+      <button
+        class="topbar__side"
+        type="button"
+        aria-label="Cambiar idioma"
+        aria-expanded="false"
+        aria-controls="languageMenuList"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="8"></circle>
+          <path d="M4 12h16"></path>
+          <path d="M12 4c2.1 2.2 3.1 4.9 3.1 8s-1 5.8-3.1 8"></path>
+          <path d="M12 4c-2.1 2.2-3.1 4.9-3.1 8s1 5.8 3.1 8"></path>
+        </svg>
+      </button>
+      <div class="language-menu__list" id="languageMenuList" role="menu" aria-label="Idioma">
+        <button class="language-menu__option is-active" type="button" role="menuitem" aria-current="true">
+          <span>Español</span>
+          <span class="language-menu__code">ES</span>
+        </button>
+        <button class="language-menu__option" type="button" role="menuitem" disabled>
+          <span>English</span>
+          <span class="language-menu__code">EN</span>
+        </button>
+      </div>
+    </div>
+    <button class="about-trigger" type="button" aria-label="Sobre mí" data-about-trigger="aboutModal">
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="8"></circle>
-        <path d="M4 12h16"></path>
-        <path d="M12 4c2.1 2.2 3.1 4.9 3.1 8s-1 5.8-3.1 8"></path>
-        <path d="M12 4c-2.1 2.2-3.1 4.9-3.1 8s1 5.8 3.1 8"></path>
+        <circle cx="12" cy="8" r="3.2"></circle>
+        <path d="M5.8 19c.7-3.4 3-5.1 6.2-5.1s5.5 1.7 6.2 5.1"></path>
       </svg>
     </button>
-    <div class="language-menu__list" id="languageMenuList" role="menu" aria-label="Idioma">
-      <button class="language-menu__option is-active" type="button" role="menuitem" aria-current="true">
-        <span>Español</span>
-        <span class="language-menu__code">ES</span>
-      </button>
-      <button class="language-menu__option" type="button" role="menuitem" disabled>
-        <span>English</span>
-        <span class="language-menu__code">EN</span>
-      </button>
-    </div>
   </div>
   <a class="brand" href="/" aria-label="A.G. Cidoncha, inicio">
     <svg class="brand__mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
@@ -51,6 +63,8 @@
     </span>
   </button>
 </header>
+
+<AboutModal />
 
 <script>
   const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
@@ -110,7 +124,11 @@
   .brand strong, .brand small { display: block; }
   .brand strong { font-size: 1.08rem; font-weight: 700; letter-spacing: -.02em; transition: font-size .3s ease; }
   .brand small { margin-top: .14rem; color: var(--text); font-size: .56rem; font-weight: 600; }
-  .language-menu { position: relative; justify-self: start; }
+  .topbar__left { justify-self: start; display: flex; align-items: center; gap: .7rem; }
+  .language-menu { position: relative; }
+  .about-trigger { display: grid; place-items: center; width: 2.4rem; aspect-ratio: 1; border: 1px solid var(--border); border-radius: 50%; color: var(--muted); background: transparent; cursor: pointer; transition: color .2s ease, border-color .2s ease; }
+  .about-trigger:hover { color: var(--text); border-color: color-mix(in srgb, var(--text) 30%, var(--border)); }
+  .about-trigger svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
   .topbar__side { display: grid; place-items: center; width: 2.4rem; aspect-ratio: 1; border: 1px solid var(--border); border-radius: 50%; color: var(--muted); background: transparent; cursor: pointer; transition: color .2s ease, border-color .2s ease; }
   .topbar__side:hover, .language-menu.is-open .topbar__side { color: var(--text); border-color: color-mix(in srgb, var(--text) 30%, var(--border)); }
   .topbar__side svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
@@ -140,6 +158,8 @@
     .brand__mark { width: 2.1rem; height: 2.1rem; }
     .brand strong { font-size: .85rem; }
     .topbar__side { width: 2.1rem; }
+    .topbar__left { gap: .5rem; }
+    .about-trigger { width: 2.1rem; }
     .theme-toggle { width: 4.6rem; }
     .theme-toggle__option span { display: none; }
   }

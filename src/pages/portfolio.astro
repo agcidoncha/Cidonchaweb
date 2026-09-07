@@ -223,6 +223,22 @@ const projects = [
     height: 100%;
     object-fit: cover;
     object-position: top;
+    filter: grayscale(1);
+    transition: filter 0.4s ease, transform 0.4s ease;
+  }
+  .portfolio-card:hover .portfolio-card__media img {
+    filter: grayscale(0);
+    transform: scale(1.04);
+  }
+
+  @media (min-width: 901px) {
+    .portfolio-card__media img { filter: grayscale(1) blur(4px); transform: scale(1.06); }
+    .portfolio-card:hover .portfolio-card__media img { filter: grayscale(0) blur(0); transform: scale(1.04); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio-card__media img { transition: none; filter: grayscale(1); transform: none; }
+    .portfolio-card:hover .portfolio-card__media img { transform: none; }
   }
   .portfolio-card__fallback {
     padding: 1rem;
