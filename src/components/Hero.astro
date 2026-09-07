@@ -106,14 +106,14 @@ const scenesData = scenes.map((scene) => ({
 ---
 
 <div class="hero-wrap">
-  <main class="hero">
+  <main class="hero" style={`--accent: ${scenesData[0].accent}`}>
     <div class="hero__copy">
-      <p class="hero__eyebrow" id="heroEyebrow"></p>
+      <p class="hero__eyebrow" id="heroEyebrow">{scenesData[0].eyebrow}</p>
       <h1 class="hero__title" id="heroTitle">
-        <span class="hero__title-line" id="titleLine1"></span>
-        <span class="hero__title-line hero__title-line--accent" id="titleLine2"></span>
+        <span class="hero__title-line" id="titleLine1">{scenesData[0].title[0]}</span>
+        <span class="hero__title-line hero__title-line--accent" id="titleLine2">{scenesData[0].title[1]}</span>
       </h1>
-      <p class="hero__subtitle" id="heroSubtitle"></p>
+      <p class="hero__subtitle" id="heroSubtitle">{scenesData[0].subtitle}</p>
 
       <div class="hero__dots" id="heroDots" role="tablist" aria-label={dotsLabel}>
         {scenes.map((scene, i) => (
@@ -450,5 +450,72 @@ const scenesData = scenes.map((scene) => ({
   @media (max-width: 900px) {
     .hero { width: min(100% - 1.5rem, 84rem); grid-template-columns: 1fr; padding-top: 2.5rem; }
     .hero__panel-body { height: auto; min-height: 18.6rem; }
+  }
+
+  @media (max-width: 640px) {
+    .hero__panel-body { padding: 1.1rem; }
+    .hero__scene { position: relative; inset: auto; display: none; transform: none; }
+    .hero__scene.is-active { display: block; }
+
+    .hero__diagram { height: auto; }
+    .hero__diagram svg { display: none; }
+
+    .diagram-node {
+      position: relative;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: none;
+    }
+    .diagram-node:last-child { margin-bottom: 0; }
+    .diagram-node::before { display: none; }
+    .diagram-node::after {
+      content: '';
+      position: absolute;
+      top: auto;
+      right: auto;
+      left: 50%;
+      bottom: -1.5rem;
+      width: 2px;
+      height: 1.5rem;
+      background: color-mix(in srgb, var(--accent) 70%, transparent);
+      box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 50%, transparent);
+      transform: translateX(-50%) scaleY(0);
+      transform-origin: top;
+      opacity: 0;
+      border: 0;
+      border-radius: 0;
+    }
+    .diagram-node:last-child::after { display: none; }
+
+    .hero__scene.play-sequence .diagram-node {
+      animation: heroNodeAppear 0.45s ease forwards;
+    }
+    .hero__scene.play-sequence .diagram-node::after {
+      animation: heroConnectorDraw 0.3s ease forwards;
+    }
+
+    .hero__scene.play-sequence .node--1 { animation-delay: 0s; }
+    .hero__scene.play-sequence .node--1::after { animation-delay: 0.4s; }
+    .hero__scene.play-sequence .node--2 { animation-delay: 0.6s; }
+    .hero__scene.play-sequence .node--2::after { animation-delay: 1s; }
+    .hero__scene.play-sequence .node--3 { animation-delay: 1.2s; }
+    .hero__scene.play-sequence .node--3::after { animation-delay: 1.6s; }
+    .hero__scene.play-sequence .node--4 { animation-delay: 1.8s; }
+
+    @keyframes heroNodeAppear {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroConnectorDraw {
+      from { opacity: 0; transform: translateX(-50%) scaleY(0); }
+      to { opacity: 1; transform: translateX(-50%) scaleY(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .diagram-node { opacity: 1; transform: none; }
+      .diagram-node::after { opacity: 1; transform: translateX(-50%) scaleY(1); }
+    }
   }
 </style>

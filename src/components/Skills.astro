@@ -640,28 +640,17 @@ const skillGroups = [
   @media (max-width: 720px) {
     .skills { width: min(100% - 1.5rem, 84rem); padding-top: 2.75rem; }
     .skills__board { grid-template-columns: 1fr; }
-    .skills__board:has(.skill-card.is-open) .skill-nav { width: 1.9rem; height: 1.9rem; }
+    .skill-nav { display: none; }
     .skill-card, .skill-card__open { min-height: 15rem; }
     .skill-card.is-open { grid-column: auto; }
-    .skill-card__title { font-size: clamp(2.8rem, 14vw, 4.5rem); }
-    .skill-card.is-open .skill-card__title { font-size: clamp(3rem, 15vw, 5rem); }
+    .skill-card__title { max-width: 9ch; font-size: clamp(2.8rem, 14vw, 4.5rem); }
+    .skill-card.is-open .skill-card__title { max-width: none; font-size: clamp(3rem, 15vw, 5rem); }
+    .skill-card__open { padding-right: 4.2rem; }
+    .skill-card__tap { top: 50%; bottom: auto; transform: translateY(-50%); }
+    .skill-card.is-open .skill-card__tap { display: none; }
     .skill-card__layout { grid-template-columns: 1fr; gap: 1.1rem; }
     .skill-card__copy ul { grid-template-columns: 1fr; }
-    .skill-card__flow { min-height: auto; padding: .9rem .9rem .7rem; }
+    .skill-card__flow { display: none; }
     .skill-card__close { top: 1rem; right: 1rem; }
-
-    .flow-step {
-      display: grid;
-      grid-template-columns: 2.6rem 1fr;
-      grid-template-areas: "icon copy" "status status";
-      column-gap: .7rem;
-      row-gap: .55rem;
-      min-height: 0;
-      padding: .75rem .8rem;
-    }
-    .flow-icon { grid-area: icon; align-self: start; width: 2.6rem; height: 2.6rem; }
-    .flow-icon :global(svg) { width: 1.25rem; height: 1.25rem; }
-    .flow-copy { grid-area: copy; }
-    .flow-status { grid-area: status; justify-self: start; }
   }
 </style>
