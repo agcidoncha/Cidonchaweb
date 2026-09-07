@@ -1,0 +1,146 @@
+<header class="topbar">
+  <div class="language-menu" id="languageMenu">
+    <button
+      class="topbar__side"
+      type="button"
+      aria-label="Cambiar idioma"
+      aria-expanded="false"
+      aria-controls="languageMenuList"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="8"></circle>
+        <path d="M4 12h16"></path>
+        <path d="M12 4c2.1 2.2 3.1 4.9 3.1 8s-1 5.8-3.1 8"></path>
+        <path d="M12 4c-2.1 2.2-3.1 4.9-3.1 8s1 5.8 3.1 8"></path>
+      </svg>
+    </button>
+    <div class="language-menu__list" id="languageMenuList" role="menu" aria-label="Idioma">
+      <button class="language-menu__option is-active" type="button" role="menuitem" aria-current="true">
+        <span>Español</span>
+        <span class="language-menu__code">ES</span>
+      </button>
+      <button class="language-menu__option" type="button" role="menuitem" disabled>
+        <span>English</span>
+        <span class="language-menu__code">EN</span>
+      </button>
+    </div>
+  </div>
+  <a class="brand" href="/" aria-label="A.G. Cidoncha, inicio">
+    <svg class="brand__mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
+      <defs>
+        <linearGradient id="cvBrandGradient" x1="32" y1="6" x2="32" y2="58" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F45A60"></stop>
+          <stop offset="52%" stop-color="#FF447C"></stop>
+          <stop offset="100%" stop-color="#FF3292"></stop>
+        </linearGradient>
+      </defs>
+      <rect x="7" y="7" width="50" height="50" rx="9" fill="none" stroke="url(#cvBrandGradient)" stroke-width="4.8"></rect>
+      <path d="M21 23.5L31.5 32L21 40.5" fill="none" stroke="url(#cvBrandGradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M37 40.5H48" fill="none" stroke="url(#cvBrandGradient)" stroke-width="4.8" stroke-linecap="round"></path>
+    </svg>
+    <span class="brand__copy"><strong>A.G. Cidoncha</strong><small>Diseño · Desarrollo · Automatización</small></span>
+  </a>
+  <button class="theme-toggle" type="button" aria-label="Cambiar a tema claro" aria-pressed="false">
+    <span class="theme-toggle__option theme-toggle__option--dark" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"></path></svg>
+      <span>Noche</span>
+    </span>
+    <span class="theme-toggle__option theme-toggle__option--light" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+      <span>Día</span>
+    </span>
+  </button>
+</header>
+
+<script>
+  const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const root = document.documentElement;
+
+  const updateThemeControl = () => {
+    const isLight = root.dataset.theme === 'light';
+    themeToggle?.setAttribute('aria-pressed', String(isLight));
+    themeToggle?.setAttribute('aria-label', isLight ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
+  };
+
+  updateThemeControl();
+  themeToggle?.addEventListener('click', () => {
+    const nextTheme = root.dataset.theme === 'light' ? 'dark' : 'light';
+    root.dataset.theme = nextTheme;
+    localStorage.setItem('cv-theme', nextTheme);
+    updateThemeControl();
+  });
+
+  const topbar = document.querySelector<HTMLElement>('.topbar');
+  const updateTopbarScroll = () => {
+    topbar?.classList.toggle('is-scrolled', window.scrollY > 12);
+  };
+  updateTopbarScroll();
+  window.addEventListener('scroll', updateTopbarScroll, { passive: true });
+
+  const languageMenu = document.getElementById('languageMenu');
+  const languageTrigger = languageMenu?.querySelector<HTMLButtonElement>('.topbar__side');
+
+  const closeLanguageMenu = () => {
+    languageMenu?.classList.remove('is-open');
+    languageTrigger?.setAttribute('aria-expanded', 'false');
+  };
+
+  languageTrigger?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const opening = !languageMenu?.classList.contains('is-open');
+    languageMenu?.classList.toggle('is-open', opening);
+    languageTrigger.setAttribute('aria-expanded', String(opening));
+  });
+
+  document.addEventListener('click', (event) => {
+    if (languageMenu && !languageMenu.contains(event.target as Node)) closeLanguageMenu();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeLanguageMenu();
+  });
+</script>
+
+<style>
+  .topbar { position: sticky; top: 0; z-index: 50; height: 5.25rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 clamp(1.5rem, 5vw, 6rem); background: transparent; border-bottom: 1px solid transparent; transition: background-color .3s ease, border-color .3s ease, height .3s ease; }
+  .topbar.is-scrolled { background: color-mix(in srgb, var(--background) 82%, transparent); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border-bottom-color: var(--border); }
+  .brand { display: flex; align-items: center; gap: .8rem; color: var(--text); text-decoration: none; }
+  .brand__mark { width: 2.9rem; height: 2.9rem; flex: 0 0 auto; transition: width .3s ease, height .3s ease; }
+  .brand__copy { display: block; }
+  .brand strong, .brand small { display: block; }
+  .brand strong { font-size: 1.08rem; font-weight: 700; letter-spacing: -.02em; transition: font-size .3s ease; }
+  .brand small { margin-top: .14rem; color: var(--text); font-size: .56rem; font-weight: 600; }
+  .language-menu { position: relative; justify-self: start; }
+  .topbar__side { display: grid; place-items: center; width: 2.4rem; aspect-ratio: 1; border: 1px solid var(--border); border-radius: 50%; color: var(--muted); background: transparent; cursor: pointer; transition: color .2s ease, border-color .2s ease; }
+  .topbar__side:hover, .language-menu.is-open .topbar__side { color: var(--text); border-color: color-mix(in srgb, var(--text) 30%, var(--border)); }
+  .topbar__side svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+  .language-menu__list { position: absolute; top: calc(100% + .6rem); left: 0; z-index: 60; min-width: 9rem; padding: .4rem; border: 1px solid color-mix(in srgb, var(--border) 55%, transparent); border-radius: .9rem; background: var(--surface); box-shadow: 0 14px 32px rgba(0, 0, 0, .18); opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+  .language-menu.is-open .language-menu__list { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .language-menu__option { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: .7rem; padding: .55rem .65rem; border: 1px solid transparent; border-radius: .6rem; color: var(--muted); background: transparent; font: 600 .78rem/1 var(--font-body); text-align: left; cursor: pointer; }
+  .language-menu__option:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+  .language-menu__option + .language-menu__option { margin-top: .15rem; }
+  .language-menu__option.is-active { color: var(--text); background: color-mix(in srgb, var(--accent, var(--text)) 10%, transparent); }
+  .language-menu__option[disabled] { opacity: .45; cursor: default; }
+  .language-menu__code { color: var(--muted); font: 700 .64rem/1 var(--font-mono); letter-spacing: .06em; }
+  .language-menu__option.is-active .language-menu__code { color: var(--text); }
+  .theme-toggle { position: relative; justify-self: end; display: grid; grid-template-columns: 1fr 1fr; width: 9rem; height: 2.55rem; padding: .2rem; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--muted); cursor: pointer; isolation: isolate; }
+  .theme-toggle::before { content: ''; position: absolute; z-index: -1; top: .2rem; left: .2rem; width: calc(50% - .2rem); height: calc(100% - .4rem); border-radius: 999px; background: var(--text); transition: transform .25s ease, background-color .25s ease; }
+  .theme-toggle__option { display: flex; align-items: center; justify-content: center; gap: .35rem; font: 600 .53rem/1 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); transition: color .25s ease; }
+  .theme-toggle__option svg { width: .9rem; height: .9rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .theme-toggle__option--dark { color: var(--background); }
+  [data-theme='light'] .theme-toggle::before { transform: translateX(100%); }
+  [data-theme='light'] .theme-toggle__option--dark { color: var(--muted); }
+  [data-theme='light'] .theme-toggle__option--light { color: var(--background); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+
+  @media (max-width: 720px) {
+    .topbar { height: 3.6rem; padding-inline: 1rem; }
+    .brand small { display: none; }
+    .brand__mark { width: 2.1rem; height: 2.1rem; }
+    .brand strong { font-size: .85rem; }
+    .topbar__side { width: 2.1rem; }
+    .theme-toggle { width: 4.6rem; }
+    .theme-toggle__option span { display: none; }
+  }
+</style>

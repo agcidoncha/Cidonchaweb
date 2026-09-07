@@ -1,0 +1,303 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const accents = ['#ff684b', '#9c64f4', '#438cef', '#38d7bc'];
+
+const projects = [
+  {
+    name: 'El Corte Inglés',
+    description: 'Plataforma de contratación de tarifas de luz y gas, rápida y online.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/el-corte-ingles.webp',
+    href: 'https://ofertas.energiaelcorteingles.es/',
+  },
+  {
+    name: 'Packlink',
+    description: 'Comparador y contratación de envíos con varias empresas de mensajería.',
+    tags: ['Diseño Web', 'Maquetación', 'Publicidad TV'],
+    img: '/portfolio/packlink.webp',
+    href: 'https://packlink.es/',
+  },
+  {
+    name: 'Mayores Sanitas',
+    description: 'Web informativa sobre residencias y cuidado de personas mayores.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/sanitas.webp',
+    href: 'https://mayoressanitas.es/',
+  },
+  {
+    name: 'Endesa energía',
+    description: 'Web informativa de tarifas y planes de luz y gas.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/endesa.webp',
+    href: 'https://www.escolhaendesa.pt/',
+  },
+  {
+    name: 'Kinépolis Empresas',
+    description: 'Soluciones corporativas para eventos y experiencias de cine.',
+    tags: ['Diseño Web', 'Maquetación', 'Publicidad TV'],
+    img: '/portfolio/kinepolis.webp',
+    href: 'https://empresas.kinepolis.es/',
+  },
+  {
+    name: 'Melopido',
+    description: 'Tienda de productos oficiales redirigida a Amazon A++.',
+    tags: ['Diseño Web', 'Maquetación', 'Amazon A++'],
+    img: '/portfolio/melopido.webp',
+    href: 'https://melopido.shop/',
+  },
+  {
+    name: 'Mr Shisha',
+    description: 'E-commerce de cachimbas premium, de la identidad a la tienda online.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/mr-shisha.webp',
+    href: 'https://mrshisha.es/',
+  },
+  {
+    name: 'If You Like Cars',
+    description: 'Web de eventos automovilísticos, de la marca a la implementación.',
+    tags: ['Diseño Web', 'Maquetación', 'Video Evento'],
+    img: '/portfolio/if-you-like-cars.webp',
+    href: 'https://ifyoulikecars.com/',
+  },
+  {
+    name: 'LTW',
+    description: 'Web corporativa en 3 idiomas, de diseño a SEO técnico.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/ltw.webp',
+    href: 'https://ltw.es/',
+  },
+  {
+    name: 'Supertribus',
+    description: 'Planes familiares originales, con CMS y rendimiento cuidado.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/supertribus.webp',
+    href: 'https://supertribus.com/',
+  },
+  {
+    name: 'Asesores de Imagen',
+    description: 'Web de estilismo y asesoramiento personalizado.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/asesores-de-imagen.webp',
+    href: 'https://aiasesoresdeimagen.com/',
+  },
+  {
+    name: 'ISID',
+    description: 'Web corporativa de soluciones de analítica de audio/vídeo con IA.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/isid.webp',
+    href: 'https://isid.com/',
+  },
+  {
+    name: 'Zumo Animaciones',
+    description: 'Animación de eventos infantiles, de empresa y para adultos.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/zumo-animaciones.webp',
+    href: 'https://zumoanimaciones.com/',
+  },
+  {
+    name: 'Perucha y Asociados',
+    description: 'Web de servicios profesionales, clara y accesible.',
+    tags: ['Diseño Web', 'Maquetación', 'Programación'],
+    img: '/portfolio/perucha-y-asociados.webp',
+    href: 'https://peruchayasociados.com/',
+  },
+].map((p, i) => ({ ...p, accent: accents[i % accents.length] }));
+---
+
+<BaseLayout
+  title="Portfolio — Ángel G. Cidoncha"
+  description="Proyectos reales de diseño, maquetación y desarrollo WordPress para marcas como El Corte Inglés, Sanitas, Endesa, Kinépolis y más."
+>
+  <main class="portfolio-page">
+    <section class="portfolio">
+      <div class="portfolio__intro">
+        <h1>Portfolio</h1>
+        <p class="portfolio__subtitle">Proyectos reales de diseño, maquetación y desarrollo.</p>
+      </div>
+
+      <div class="portfolio__grid">
+        {projects.map((project) => (
+          <a
+            class="portfolio-card"
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={`--accent: ${project.accent}`}
+          >
+            <div class="portfolio-card__media">
+              <img
+                src={project.img}
+                alt={`Captura de la web de ${project.name}`}
+                loading="lazy"
+                decoding="async"
+                onerror="this.hidden=true;this.nextElementSibling.hidden=false;"
+              />
+              <span class="portfolio-card__fallback" hidden>{project.name}</span>
+            </div>
+            <div class="portfolio-card__body">
+              <h2>{project.name}</h2>
+              <p>{project.description}</p>
+              <div class="portfolio-card__tags">
+                {project.tags.map((tag) => <span>{tag}</span>)}
+              </div>
+              <span class="portfolio-card__link">Ver proyecto <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .portfolio-page {
+    min-height: 100svh;
+    background: var(--background);
+  }
+
+  .portfolio {
+    width: min(100% - 2.5rem, 84rem);
+    margin: 0 auto;
+    padding: 3rem 0 5rem;
+  }
+
+  .portfolio__intro {
+    text-align: center;
+  }
+
+  .portfolio__intro h1 {
+    margin: 0;
+    font: 400 clamp(3rem, 4.6vw, 5rem)/.9 var(--font-display);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .portfolio__subtitle {
+    margin: 1.1rem 0 0;
+    color: var(--muted);
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    font-weight: 600;
+  }
+
+  .portfolio__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.1rem;
+    margin-top: clamp(2.25rem, 3.5vw, 3rem);
+  }
+
+  .portfolio-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--border));
+    border-radius: 1.3rem;
+    background: color-mix(in srgb, var(--accent) 4%, var(--surface));
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .portfolio-card:hover {
+    transform: translateY(-0.4rem);
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  }
+  .portfolio-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .portfolio-card__media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--accent) 6%, var(--background));
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
+  }
+  .portfolio-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .portfolio-card__fallback {
+    padding: 1rem;
+    color: var(--muted);
+    font: 600 0.9rem/1.2 var(--font-mono);
+    text-align: center;
+  }
+
+  .portfolio-card__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.6rem;
+    padding: 1.3rem 1.4rem 1.5rem;
+  }
+
+  .portfolio-card__body h2 {
+    margin: 0;
+    color: var(--text);
+    font: 400 1.5rem/1.05 var(--font-display);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .portfolio-card__body p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    flex: 1;
+  }
+
+  .portfolio-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .portfolio-card__tags span {
+    padding: 0.28rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    color: var(--accent);
+    font: 600 0.62rem/1 var(--font-mono);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .portfolio-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.3rem;
+    color: var(--accent);
+    font: 600 0.72rem/1 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .portfolio-card__link span {
+    transition: transform 0.25s ease;
+  }
+  .portfolio-card:hover .portfolio-card__link span {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 900px) {
+    .portfolio__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    .portfolio { width: min(100% - 1.5rem, 84rem); padding-top: 2.5rem; }
+    .portfolio__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

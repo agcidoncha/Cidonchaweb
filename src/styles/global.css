@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+:root { color-scheme: dark; --font-display: 'Bebas Neue', Impact, sans-serif; --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif; --font-mono: 'SFMono-Regular', Consolas, monospace; --background: #070a18; --surface: #0d1226; --text: #f7f7fb; --muted: #9ca5bd; --border: #252c43; --complete: #12ff87; }
+:root[data-theme='light'] { color-scheme: light; --background: #f3f1ec; --surface: #fcfbf7; --text: #12141b; --muted: #686d79; --border: #d3d0c8; --complete: #0d8a4e; }
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--background); scroll-behavior: smooth; }
+body { min-width: 320px; margin: 0; background: var(--background); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; transition: background-color .25s ease, color .25s ease; opacity: 0; animation: pageFadeIn .45s ease .05s forwards; }
+@keyframes pageFadeIn { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { body { opacity: 1; animation: none; } }
+summary { -webkit-tap-highlight-color: transparent; }
+summary:focus-visible { outline: 2px solid #8fffc6; outline-offset: 5px; }
+::selection { background: #ff3f8e; color: #fff; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }

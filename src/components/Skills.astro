@@ -1,0 +1,501 @@
+---
+const ICONS: Record<string, string> = {
+  layout: '<rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect>',
+  palette: '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.1 0 2-.9 2-2 0-.52-.2-.99-.53-1.34-.32-.34-.52-.8-.52-1.31 0-1.1.9-2 2-2h2.35c2.31 0 4.2-1.89 4.2-4.2C21.5 6.03 17.19 2 12 2Z"></path><circle cx="7" cy="12" r="1"></circle><circle cx="9.5" cy="7.5" r="1"></circle><circle cx="14.5" cy="7.5" r="1"></circle><circle cx="17" cy="12" r="1"></circle>',
+  code: '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>',
+  check: '<polyline points="20 6 9 17 4 12"></polyline>',
+  database: '<ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"></path><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"></path>',
+  settings: '<circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"></path>',
+  server: '<rect x="2" y="3" width="20" height="7" rx="1.5"></rect><rect x="2" y="14" width="20" height="7" rx="1.5"></rect><line x1="6" y1="6.5" x2="6.01" y2="6.5"></line><line x1="6" y1="17.5" x2="6.01" y2="17.5"></line>',
+  plug: '<path d="M12 22v-5"></path><path d="M9 8V2"></path><path d="M15 8V2"></path><path d="M18 8v3a6 6 0 0 1-6 6 6 6 0 0 1-6-6V8h12Z"></path>',
+  zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>',
+  gauge: '<path d="M12 15l3.5-4"></path><path d="M3.05 12a9 9 0 1 1 3.66 6.6"></path><path d="M12 15a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"></path>',
+  search: '<circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>',
+  sparkles: '<path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z"></path><path d="M5 3.5l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5L3 5.5l1.5-.5.5-1.5Z"></path><path d="M19 15l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5.5-1.5Z"></path>',
+  share: '<circle cx="18" cy="5" r="2.5"></circle><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="19" r="2.5"></circle><line x1="8.3" y1="10.7" x2="15.7" y2="6.8"></line><line x1="8.3" y1="13.3" x2="15.7" y2="17.2"></line>',
+};
+
+const icon = (name: string) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] ?? ''}</svg>`;
+
+const skillGroups = [
+  {
+    id: 'diseno',
+    number: '01',
+    tag: 'Diseño',
+    title: 'Diseño y maquetación',
+    accent: '#ff684b',
+    intro: 'Interfaces claras, maquetadas con código limpio y pensadas para funcionar igual de bien en cualquier dispositivo.',
+    flowLabel: 'FLUJO DE DISEÑO',
+    items: ['Diseño UI', 'Maquetación responsive', 'Optimización UX', 'HTML5, CSS3 y SASS', 'Desarrollo mobile-first'],
+    steps: [
+      { icon: 'layout', title: 'Boceto y wireframe', desc: 'Se define la estructura y la jerarquía visual', status: 'Diseño' },
+      { icon: 'palette', title: 'Sistema visual', desc: 'Tipografía, color y componentes coherentes', status: 'Sistema' },
+      { icon: 'code', title: 'Maquetación', desc: 'HTML y CSS semántico, limpio y responsive', status: 'Código' },
+      { icon: 'check', title: 'Revisión UX', desc: 'Se valida la experiencia en cualquier dispositivo', status: 'Publicado' },
+    ],
+  },
+  {
+    id: 'wordpress',
+    number: '02',
+    tag: 'CMS',
+    title: 'Desarrollo WordPress',
+    accent: '#9c64f4',
+    intro: 'Themes a medida sobre WordPress, con una arquitectura de contenido pensada para que el equipo edite sin depender de un desarrollador.',
+    flowLabel: 'FLUJO WORDPRESS',
+    items: ['Themes a medida', 'Advanced Custom Fields (ACF)', 'Custom Post Types (CPT)', 'Templates dinámicos'],
+    steps: [
+      { icon: 'database', title: 'Arquitectura de contenido', desc: 'Se definen tipos de contenido y campos con ACF', status: 'Estructura' },
+      { icon: 'layout', title: 'Theme a medida', desc: 'Plantillas dinámicas adaptadas al proyecto', status: 'Desarrollo' },
+      { icon: 'settings', title: 'Panel editable', desc: 'El equipo de contenido gestiona sin tocar código', status: 'Autonomía' },
+      { icon: 'check', title: 'Web en producción', desc: 'Sitio estable y mantenible en el tiempo', status: 'Publicado' },
+    ],
+  },
+  {
+    id: 'headless',
+    number: '03',
+    tag: 'Performance',
+    title: 'Headless y rendimiento',
+    accent: '#438cef',
+    intro: 'WordPress como gestor de contenido y Astro como capa de presentación, priorizando siempre la velocidad de carga.',
+    flowLabel: 'FLUJO HEADLESS',
+    items: ['WordPress Headless CMS', 'Astro, REST API y SSG', 'Core Web Vitals', 'Caché y rendimiento', 'PHP y SQL'],
+    steps: [
+      { icon: 'server', title: 'WordPress como CMS', desc: 'El contenido se gestiona igual que siempre', status: 'Origen' },
+      { icon: 'plug', title: 'REST API', desc: 'Astro consume el contenido vía API', status: 'Conecta' },
+      { icon: 'zap', title: 'Generación estática', desc: 'Páginas servidas ya construidas', status: 'Optimiza' },
+      { icon: 'gauge', title: 'Core Web Vitals', desc: 'Carga rápida y estable en cualquier dispositivo', status: 'Rendimiento' },
+    ],
+  },
+  {
+    id: 'ia',
+    number: '04',
+    tag: 'IA',
+    title: 'IA y automatización',
+    accent: '#38d7bc',
+    intro: 'IA y automatización aplicadas al desarrollo, la documentación y la coordinación de proyectos, no como una lista de herramientas sueltas.',
+    flowLabel: 'FLUJO CON IA',
+    items: ['Codex y Claude', 'Automatización con n8n', 'APIs y conectores MCP', 'Agentes y skills', 'Flujos asistidos por IA'],
+    steps: [
+      { icon: 'search', title: 'Tarea o proceso', desc: 'Se identifica qué puede asistirse con IA', status: 'Detecta' },
+      { icon: 'sparkles', title: 'Agente o flujo', desc: 'Se diseña con Claude, Codex o n8n', status: 'Diseña' },
+      { icon: 'share', title: 'Conectores y APIs', desc: 'Se integra con las herramientas del proyecto vía MCP', status: 'Conecta' },
+      { icon: 'check', title: 'Flujo en marcha', desc: 'Automatiza tareas y libera tiempo del equipo', status: 'Automatiza' },
+    ],
+  },
+];
+---
+
+<main class="skills-page">
+  <section class="skills" aria-labelledby="skills-title">
+    <div class="skills__intro">
+      <h2 id="skills-title">Perfil técnico y creativo</h2>
+      <p class="skills__subtitle">Diseño, desarrollo e IA aplicados a proyectos digitales.</p>
+    </div>
+
+    <div class="skills__board" id="skillsBoard" aria-label="Áreas de habilidades interactivas">
+      <button class="skill-nav skill-nav-prev" type="button" aria-label="Área anterior">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button class="skill-nav skill-nav-next" type="button" aria-label="Área siguiente">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      {skillGroups.map((group) => (
+        <article class="skill-card" data-skill={group.id} style={`--accent: ${group.accent}`}>
+          <span class="skill-card__index">{group.number} · {group.tag}</span>
+          <button class="skill-card__drag" type="button" aria-label={`Arrastrar ${group.title}`}>
+            <span class="skill-card__grip" aria-hidden="true"></span>
+          </button>
+          <button class="skill-card__open" type="button" aria-expanded="false">
+            <span class="skill-card__title">{group.title}</span>
+          </button>
+          <span class="skill-card__tap" aria-hidden="true">+</span>
+          <button class="skill-card__close" type="button" aria-label={`Cerrar ${group.title}`}>
+            <span>Cerrar</span> ×
+          </button>
+          <div class="skill-card__body"><div class="skill-card__body-inner">
+            <div class="skill-card__layout">
+              <div class="skill-card__copy">
+                <p>{group.intro}</p>
+                <ul>
+                  {group.items.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item}</strong></li>)}
+                </ul>
+              </div>
+              <div class="skill-card__flow" data-flow-label={group.flowLabel} aria-label={`Flujo de trabajo de ${group.title}`}>
+                {group.steps.map((step, index) => (
+                  <div class={`flow-step flow-step--${index + 1}`}>
+                    <div class="flow-icon" set:html={icon(step.icon)} />
+                    <div class="flow-copy"><strong>{step.title}</strong><span>{step.desc}</span></div>
+                    <div class="flow-status">{step.status}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div></div>
+        </article>
+      ))}
+    </div>
+    <p class="skills__hint">
+      <span><strong>Toca</strong> una tarjeta para consultar cada área</span>
+      <span><strong>Arrastra</strong> desde ··· para cambiar su orden</span>
+    </p>
+  </section>
+</main>
+
+<script>
+  const board = document.getElementById('skillsBoard');
+  const cards = board ? Array.from(board.querySelectorAll<HTMLElement>('.skill-card')) : [];
+
+  function closeCard(card: HTMLElement) {
+    card.classList.remove('is-open', 'play-sequence');
+    card.querySelector('.skill-card__open')?.setAttribute('aria-expanded', 'false');
+  }
+
+  function closeBoard() {
+    cards.forEach(closeCard);
+  }
+
+  function openCard(card: HTMLElement) {
+    if (card.classList.contains('is-open')) return;
+    cards.forEach(closeCard);
+    card.classList.add('is-open');
+    card.querySelector('.skill-card__open')?.setAttribute('aria-expanded', 'true');
+
+    card.classList.remove('play-sequence');
+    void card.offsetWidth;
+    card.classList.add('play-sequence');
+
+    window.setTimeout(() => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+
+    positionSkillNav();
+  }
+
+  const skillNavPrev = board?.querySelector<HTMLButtonElement>('.skill-nav-prev');
+  const skillNavNext = board?.querySelector<HTMLButtonElement>('.skill-nav-next');
+
+  function positionSkillNav() {
+    if (!board || !skillNavPrev || !skillNavNext) return;
+
+    if (window.innerWidth > 1300) {
+      [skillNavPrev, skillNavNext].forEach((btn) => {
+        btn.style.left = '';
+        btn.style.right = '';
+        btn.style.top = '';
+      });
+      return;
+    }
+
+    const openCardEl = board.querySelector<HTMLElement>('.skill-card.is-open');
+    const title = openCardEl?.querySelector<HTMLElement>('.skill-card__title');
+    if (!openCardEl || !title) return;
+
+    const boardRect = board.getBoundingClientRect();
+    const titleRect = title.getBoundingClientRect();
+    const closeButton = openCardEl.querySelector<HTMLElement>('.skill-card__close');
+    const closeRect = closeButton?.getBoundingClientRect();
+
+    const prevWidth = skillNavPrev.offsetWidth || 36;
+    const nextWidth = skillNavNext.offsetWidth || 36;
+    const betweenButtons = 8;
+    const titleGap = 16;
+
+    let startLeft = titleRect.right - boardRect.left + titleGap;
+
+    if (closeRect) {
+      const closeLeft = closeRect.left - boardRect.left;
+      const maxStart = closeLeft - 16 - prevWidth - betweenButtons - nextWidth;
+      startLeft = Math.min(startLeft, maxStart);
+    }
+
+    const absoluteMax = boardRect.width - 12 - prevWidth - betweenButtons - nextWidth;
+    startLeft = Math.min(startLeft, absoluteMax);
+    startLeft = Math.max(12, startLeft);
+
+    const titleCenterY = titleRect.top - boardRect.top + titleRect.height / 2;
+
+    skillNavPrev.style.left = `${startLeft}px`;
+    skillNavPrev.style.right = 'auto';
+    skillNavPrev.style.top = `${titleCenterY}px`;
+
+    skillNavNext.style.left = `${startLeft + prevWidth + betweenButtons}px`;
+    skillNavNext.style.right = 'auto';
+    skillNavNext.style.top = `${titleCenterY}px`;
+  }
+
+  function goToAdjacentCard(direction: 1 | -1) {
+    if (!board) return;
+    const order = Array.from(board.querySelectorAll<HTMLElement>('.skill-card'));
+    const openCardEl = board.querySelector<HTMLElement>('.skill-card.is-open');
+    if (!openCardEl) return;
+    const currentIndex = order.indexOf(openCardEl);
+    const nextIndex = (currentIndex + direction + order.length) % order.length;
+    openCard(order[nextIndex]);
+  }
+
+  skillNavPrev?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    goToAdjacentCard(-1);
+  });
+  skillNavNext?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    goToAdjacentCard(1);
+  });
+
+  window.addEventListener('resize', positionSkillNav, { passive: true });
+
+  cards.forEach((card) => {
+    const trigger = card.querySelector<HTMLButtonElement>('.skill-card__open');
+    const close = card.querySelector<HTMLButtonElement>('.skill-card__close');
+    trigger?.addEventListener('click', () => openCard(card));
+    close?.addEventListener('click', (event) => {
+      event.stopPropagation();
+      closeBoard();
+      trigger?.focus({ preventScroll: true });
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    const openCardEl = board?.querySelector<HTMLElement>('.skill-card.is-open');
+    if (!openCardEl || openCardEl.contains(event.target as Node)) return;
+    closeBoard();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const openCardEl = board?.querySelector<HTMLElement>('.skill-card.is-open');
+    if (!openCardEl) return;
+    closeBoard();
+    openCardEl.querySelector<HTMLButtonElement>('.skill-card__open')?.focus({ preventScroll: true });
+  });
+
+  if (board) {
+    type DragState = {
+      pointerId: number;
+      card: HTMLElement;
+      ghost: HTMLElement;
+      offsetX: number;
+      offsetY: number;
+    };
+    let drag: DragState | null = null;
+
+    board.querySelectorAll<HTMLButtonElement>('.skill-card__drag').forEach((handle) => {
+      handle.addEventListener('pointerdown', (event) => {
+        const card = handle.closest<HTMLElement>('.skill-card');
+        if (!card || card.classList.contains('is-open') || board.querySelector('.skill-card.is-open')) return;
+
+        event.preventDefault();
+
+        const rect = card.getBoundingClientRect();
+        const ghost = card.cloneNode(true) as HTMLElement;
+        ghost.classList.remove('is-open', 'is-drag-source', 'play-sequence');
+        ghost.classList.add('skill-card--ghost');
+        ghost.style.width = `${rect.width}px`;
+        ghost.style.height = `${rect.height}px`;
+        ghost.style.left = `${rect.left}px`;
+        ghost.style.top = `${rect.top}px`;
+        ghost.querySelectorAll('button,a').forEach((el) => el.setAttribute('tabindex', '-1'));
+        document.body.appendChild(ghost);
+
+        card.classList.add('is-drag-source');
+        document.body.classList.add('is-dragging-skills');
+
+        drag = {
+          pointerId: event.pointerId,
+          card,
+          ghost,
+          offsetX: event.clientX - rect.left,
+          offsetY: event.clientY - rect.top,
+        };
+      });
+    });
+
+    document.addEventListener('pointermove', (event) => {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      event.preventDefault();
+
+      drag.ghost.style.left = `${event.clientX - drag.offsetX}px`;
+      drag.ghost.style.top = `${event.clientY - drag.offsetY}px`;
+
+      drag.ghost.style.visibility = 'hidden';
+      const under = document.elementFromPoint(event.clientX, event.clientY);
+      drag.ghost.style.visibility = 'visible';
+
+      const target = under?.closest<HTMLElement>('.skill-card');
+      if (!target || target === drag.card || target.parentElement !== board) return;
+
+      const r = target.getBoundingClientRect();
+      const horizontalBand = Math.abs(event.clientY - (r.top + r.height / 2)) < r.height * 0.18;
+      const after = event.clientY > r.top + r.height / 2 || (horizontalBand && event.clientX > r.left + r.width / 2);
+
+      const reference = after ? target.nextSibling : target;
+      if (reference !== drag.card) board.insertBefore(drag.card, reference);
+    }, { passive: false });
+
+    function finishDrag(event: PointerEvent) {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      drag.card.classList.remove('is-drag-source');
+      drag.ghost.remove();
+      document.body.classList.remove('is-dragging-skills');
+      drag = null;
+    }
+
+    document.addEventListener('pointerup', finishDrag);
+    document.addEventListener('pointercancel', finishDrag);
+  }
+</script>
+
+<style>
+  .skills-page { background: var(--background); }
+
+  .skills { width: min(100% - 2.5rem, 84rem); margin: 0 auto; padding: clamp(2.5rem, 4vw, 4rem) 0 3rem; }
+  .skills__intro { text-align: center; }
+  #skills-title { margin: 0; font: 400 clamp(3rem, 4.6vw, 5rem)/.9 var(--font-display); letter-spacing: -.01em; text-transform: uppercase; }
+  .skills__subtitle { margin: 1.1rem 0 0; color: var(--muted); font-size: clamp(.9rem, 1.3vw, 1.05rem); font-weight: 600; }
+
+  .skills__board { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; margin-top: clamp(2.25rem, 3.5vw, 3rem); }
+
+  .skill-nav { position: absolute; top: 50%; z-index: 60; width: 3.5rem; height: 3.5rem; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text); display: grid; place-items: center; box-shadow: 0 14px 30px rgba(0, 0, 0, .3); opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-50%) scale(.84); transition: opacity .24s ease, visibility .24s ease, transform .24s ease, left .2s ease, top .2s ease, border-color .2s ease, color .2s ease; cursor: pointer; }
+  .skill-nav-prev { left: -4.5rem; }
+  .skill-nav-next { right: -4.5rem; }
+  .skills__board:has(.skill-card.is-open) .skill-nav { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(-50%) scale(1); }
+  .skill-nav:hover { transform: translateY(-50%) scale(1.08) !important; border-color: var(--text); }
+  .skill-nav:active { transform: translateY(-50%) scale(.94) !important; }
+  .skill-nav svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  @media (max-width: 1399px) {
+    .skill-nav { width: 2.75rem; height: 2.75rem; }
+    .skill-nav-prev { left: -3.25rem; }
+    .skill-nav-next { right: -3.25rem; }
+    .skill-nav svg { width: 1.1rem; height: 1.1rem; }
+  }
+
+  @media (max-width: 1300px) {
+    .skills__board:has(.skill-card.is-open) .skill-nav { width: 2.1rem; height: 2.1rem; box-shadow: 0 8px 18px rgba(0, 0, 0, .28); }
+    .skills__board:has(.skill-card.is-open) .skill-nav svg { width: 1rem; height: 1rem; stroke-width: 2.35; }
+  }
+  .skills__board:has(.skill-card.is-open) .skill-card:not(.is-open) { display: none; }
+
+  .skill-card { position: relative; min-height: 15.5rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--accent) 48%, var(--border)); border-radius: 1.55rem; background: color-mix(in srgb, var(--accent) 5%, var(--surface)); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text) 5%, transparent); transition: grid-column .5s ease, min-height .5s ease, border-color .3s ease, box-shadow .3s ease, opacity .2s ease, transform .3s ease; }
+  .skill-card:not(.is-open):not(.is-drag-source):hover { transform: translateY(-.4rem); border-color: color-mix(in srgb, var(--accent) 70%, var(--border)); box-shadow: 0 18px 40px rgba(0, 0, 0, .3), inset 0 1px 0 color-mix(in srgb, var(--text) 5%, transparent); }
+  .skill-card.is-open { grid-column: 1 / -1; min-height: auto; border-color: color-mix(in srgb, var(--accent) 60%, var(--border)); box-shadow: 0 34px 90px rgba(0, 0, 0, .28), inset 0 1px 0 color-mix(in srgb, var(--text) 5%, transparent); }
+  .skill-card.is-drag-source { opacity: .15; }
+
+  .skill-card__index { position: absolute; left: 1.6rem; top: 1.45rem; color: var(--accent); font: 600 .68rem/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; pointer-events: none; }
+
+  .skill-card__drag { position: absolute; right: 1.3rem; top: 1.15rem; z-index: 5; width: 2.6rem; height: 2.3rem; border-radius: .75rem; display: grid; place-items: center; border: 1px solid transparent; background: transparent; color: #68728f; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; transition: color .2s ease, border-color .2s ease, background .2s ease; }
+  .skill-card__drag:hover { color: var(--text); border-color: var(--border); background: color-mix(in srgb, var(--text) 4%, transparent); }
+  .skill-card__drag:active { cursor: grabbing; }
+  .skill-card__grip { width: 18px; height: 14px; background-image: radial-gradient(circle, currentColor 1.7px, transparent 2px); background-size: 6px 6px; opacity: .9; }
+  .skill-card.is-open .skill-card__drag { opacity: .3; pointer-events: none; }
+
+  .skill-card__open { position: relative; z-index: 1; width: 100%; min-height: 15.5rem; padding: 1.6rem; padding-top: 3.4rem; border: 0; background: transparent; color: inherit; text-align: left; display: flex; align-items: flex-end; cursor: pointer; }
+  .skill-card__open:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; border-radius: 1.4rem; }
+  .skill-card.is-open .skill-card__open { min-height: auto; padding-bottom: 1rem; cursor: default; }
+  .skill-card__title { max-width: 13ch; margin: 0; color: var(--text); font: 400 clamp(2.8rem, 4vw, 4.5rem)/.88 var(--font-display); letter-spacing: -.01em; text-transform: uppercase; transition: font-size .4s ease; }
+  .skill-card.is-open .skill-card__title { max-width: none; font-size: clamp(3.5rem, 7vw, 6.5rem); }
+
+  .skill-card__tap { position: absolute; right: 1.5rem; bottom: 1.45rem; width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); font-size: 1.15rem; pointer-events: none; transition: transform .35s ease, background .35s ease, color .35s ease; }
+  .skill-card:not(.is-open) .skill-card__tap { animation: skillTapPulse 2.8s ease-out infinite; }
+  .skill-card.is-open .skill-card__tap { transform: rotate(45deg); background: var(--accent); color: #fff; animation: none; }
+
+  @keyframes skillTapPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 65%, transparent); }
+    50% { transform: scale(1.12); }
+    70% { box-shadow: 0 0 0 16px color-mix(in srgb, var(--accent) 0%, transparent); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skill-card:not(.is-open) .skill-card__tap { animation: none; }
+  }
+
+  .skill-card__close { display: none; }
+  .skill-card.is-open .skill-card__close { position: absolute; right: 1.5rem; top: 1.3rem; z-index: 6; display: flex; align-items: center; gap: .4rem; padding: .4rem .8rem; border: 1px solid color-mix(in srgb, var(--accent) 52%, var(--border)); border-radius: 999px; background: transparent; color: var(--accent); font: 600 .58rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+
+  .skill-card__body { display: grid; grid-template-rows: 0fr; opacity: 0; padding: 0 1.6rem; transition: grid-template-rows .5s ease, opacity .25s ease, padding .5s ease; }
+  .skill-card__body-inner { overflow: hidden; }
+  .skill-card.is-open .skill-card__body { grid-template-rows: 1fr; opacity: 1; padding: 0 1.6rem 1.6rem; }
+
+  .skill-card__layout { border-top: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border)); padding-top: 1.4rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .95fr); gap: 1.6rem; align-items: stretch; }
+  .skill-card__copy { display: flex; flex-direction: column; justify-content: center; }
+  .skill-card__copy p { margin: 0 0 1.2rem; color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.2rem); font-weight: 600; line-height: 1.5; max-width: 44ch; }
+  .skill-card__copy ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: 0; padding: 0; list-style: none; }
+  .skill-card__copy li { display: grid; grid-template-columns: 2rem 1fr; align-items: center; gap: .7rem; min-height: 4.25rem; padding: .8rem 1rem; border: 1px solid color-mix(in srgb, var(--accent) 62%, var(--border)); border-radius: .9rem; background: color-mix(in srgb, var(--background) 92%, var(--surface)); }
+  .skill-card__copy li span { color: var(--accent); font: 600 1rem/1 var(--font-mono); }
+  .skill-card__copy li strong { font-size: 1rem; font-weight: 600; line-height: 1.35; }
+
+  .skill-card__flow { position: relative; min-height: 300px; padding: 1.1rem 1.1rem .7rem; border-radius: 1.2rem; border: 1px solid var(--border); background: color-mix(in srgb, var(--accent) 5%, var(--surface)); display: flex; flex-direction: column; overflow: hidden; }
+  .skill-card__flow::after { content: attr(data-flow-label); align-self: flex-end; margin-top: .6rem; font-family: var(--font-mono); font-size: .58rem; letter-spacing: .12em; color: color-mix(in srgb, var(--accent) 72%, var(--muted)); }
+
+  .flow-step { position: relative; z-index: 2; display: grid; grid-template-columns: 2.9rem 1fr auto; align-items: center; gap: .9rem; min-height: 4.4rem; padding: .75rem .9rem; margin-bottom: .55rem; border: 1px solid color-mix(in srgb, var(--text) 6%, transparent); border-radius: .95rem; background: color-mix(in srgb, var(--text) 3%, transparent); opacity: .85; }
+  .flow-step:last-child { margin-bottom: 0; }
+
+  .flow-icon { width: 2.7rem; height: 2.7rem; border-radius: .8rem; display: grid; place-items: center; color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); background: color-mix(in srgb, var(--accent) 9%, transparent); }
+  .flow-icon :global(svg) { width: 1.25rem; height: 1.25rem; }
+  .flow-copy { min-width: 0; }
+  .flow-copy strong { display: block; color: var(--text); font-size: 1.2rem; line-height: 1.12; margin-bottom: .25rem; }
+  .flow-copy span { display: block; color: var(--muted); font-size: .76rem; line-height: 1.3; }
+  .flow-status { padding: .35rem .55rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent); color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); font-family: var(--font-mono); font-size: .6rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+
+  .skill-card.play-sequence .flow-step { animation: skillStepPulse 2.6s ease 1 forwards; }
+  .skill-card.play-sequence .flow-step--2 { animation-delay: .35s; }
+  .skill-card.play-sequence .flow-step--3 { animation-delay: .7s; }
+  .skill-card.play-sequence .flow-step--4 { animation-delay: 1.05s; }
+  .skill-card.play-sequence .flow-step--1 .flow-icon, .skill-card.play-sequence .flow-step--1 .flow-status { animation: skillStepComplete .4s ease 2.4s forwards; }
+  .skill-card.play-sequence .flow-step--2 .flow-icon, .skill-card.play-sequence .flow-step--2 .flow-status { animation: skillStepComplete .4s ease 2.75s forwards; }
+  .skill-card.play-sequence .flow-step--3 .flow-icon, .skill-card.play-sequence .flow-step--3 .flow-status { animation: skillStepComplete .4s ease 3.1s forwards; }
+  .skill-card.play-sequence .flow-step--4 .flow-icon, .skill-card.play-sequence .flow-step--4 .flow-status { animation: skillStepComplete .4s ease 3.45s forwards; }
+
+  @keyframes skillStepPulse {
+    0% { opacity: .6; transform: translateX(5px); }
+    20%, 40% { opacity: 1; transform: translateX(0); border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes skillStepComplete {
+    to {
+      color: var(--complete);
+      border-color: var(--complete);
+      background: color-mix(in srgb, var(--complete) 22%, transparent);
+      box-shadow: 0 0 24px color-mix(in srgb, var(--complete) 40%, transparent);
+    }
+  }
+
+  .skill-card--ghost { position: fixed !important; z-index: 9999 !important; pointer-events: none !important; margin: 0 !important; transform: rotate(2deg) scale(1.02) !important; box-shadow: 0 32px 90px rgba(0, 0, 0, .4) !important; opacity: .96 !important; transition: none !important; }
+  :global(body.is-dragging-skills) { cursor: grabbing; user-select: none; -webkit-user-select: none; }
+
+  .skills__hint { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; margin: 1.5rem 0 0; color: #727c98; text-align: center; font-size: .75rem; }
+  .skills__hint strong { color: var(--text); }
+
+  @media (min-width: 721px) {
+    .skill-card__title { max-width: 11ch; font-size: clamp(4rem, 5.25vw, 6.25rem); }
+  }
+
+  @media (max-width: 720px) {
+    .skills { width: min(100% - 1.5rem, 84rem); padding-top: 2.75rem; }
+    .skills__board { grid-template-columns: 1fr; }
+    .skills__board:has(.skill-card.is-open) .skill-nav { width: 1.9rem; height: 1.9rem; }
+    .skill-card, .skill-card__open { min-height: 15rem; }
+    .skill-card.is-open { grid-column: auto; }
+    .skill-card__title { font-size: clamp(2.8rem, 14vw, 4.5rem); }
+    .skill-card.is-open .skill-card__title { font-size: clamp(3rem, 15vw, 5rem); }
+    .skill-card__layout { grid-template-columns: 1fr; gap: 1.1rem; }
+    .skill-card__copy ul { grid-template-columns: 1fr; }
+    .skill-card__flow { min-height: auto; padding: .9rem .9rem .7rem; }
+    .skill-card__close { top: 1rem; right: 1rem; }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: 2.6rem 1fr;
+      grid-template-areas: "icon copy" "status status";
+      column-gap: .7rem;
+      row-gap: .55rem;
+      min-height: 0;
+      padding: .75rem .8rem;
+    }
+    .flow-icon { grid-area: icon; align-self: start; width: 2.6rem; height: 2.6rem; }
+    .flow-icon :global(svg) { width: 1.25rem; height: 1.25rem; }
+    .flow-copy { grid-area: copy; }
+    .flow-status { grid-area: status; justify-self: start; }
+  }
+</style>
